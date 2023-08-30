@@ -59,6 +59,19 @@ func init() {
 	orm.RegisterModel(new(TbContract))
 }
 
+// QueryContractList 获取可查合约列表
+func QueryContractList(txType, name string) ([]*apiModels.RespContractList, error) {
+	list := make([]*apiModels.RespContractList, 0)
+	orm := orm.NewOrm()
+
+	condition := " where status = 1 and contract_type = " + txType + " and symbol != '' AND ( LOWER(name) LIKE LOWER('%" + name + "%') OR LOWER(symbol) LIKE LOWER('%" + name + "%')) ORDER BY block_id DESC"
+	_, err := orm.Raw("SELECT `name`, symbol, logo, contract_address FROM " + new(TbContract).TableName() + condition).QueryRows(&list)
+	if err != nil {
+		return nil, err
+	}
+	return list, nil
+}
+
 // NFTList 获取NFT列表
 func NFTList() ([]*apiModels.RespNftList, error) {
 	list := make([]*apiModels.RespNftList, 0)
@@ -82,7 +95,7 @@ func ContractInfo(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) 
 	}
 	req.TokenID = common.BigToHash(tokenId).String()
 
-	sqlStr := "SELECT `name`, symbol, c.contract_type as token_type, a.account_address as holder from tb_contract c left join tb_contract_account a on c.contract_address = a.contract_address where c.contract_address = '" + req.ContractAddress + "' and a.token_id = '" + req.TokenID +"'"
+	sqlStr := "SELECT `name`, symbol, c.contract_type as token_type, a.account_address as holder from tb_contract c left join tb_contract_account a on c.contract_address = a.contract_address where c.contract_address = '" + req.ContractAddress + "' and a.token_id = '" + req.TokenID + "'"
 	err := orm.Raw(sqlStr).QueryRow(&res)
 	if err != nil {
 		return nil, err

@@ -1,5 +1,12 @@
 package apiModels
 
+//type RespContractList struct {
+//	ContractAddress string `json:"contract_address"`
+//	Name            string `json:"name"`
+//	Symbol          string `json:"symbol"`
+//	Logo            string `json:"logo"`
+//}
+
 type RespNftList struct {
 	ContractAddress string `json:"contract_address"`
 	Symbol          string `json:"symbol"`
@@ -116,7 +123,7 @@ type RespNFTStartAnalysis struct {
 
 type ReqNFTTrace struct {
 	ContractAddress string `json:"contract_address"`
-	Address         string `json:"_address"`
+	Address         string `json:"address"`
 	TokenID         string `json:"token_id"`
 	Count           string `json:"count"`
 	Direction       string `json:"direction"` //in out

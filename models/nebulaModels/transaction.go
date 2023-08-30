@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/server/txs-analysis/constant"
+	"github.com/server/txs-analysis/models/apiModels"
 	"github.com/server/txs-analysis/models/dbModels"
 	"github.com/server/txs-analysis/utils"
 	"github.com/vesoft-inc/nebula-go/v3/nebula"
@@ -65,32 +66,13 @@ func prepareNFTTxs(db *norm.DB) error {
 	return err
 }
 
-func GetTxsMaxRank(db *norm.DB, edgeType, startBlock, endBlock string) ([]map[string]interface{}, error) {
-	//nGql := fmt.Sprintf("LOOKUP ON %s yield src(edge) as src, dst(edge) as dst, rank(edge) AS ranking | GROUP BY $-.src, $-.dst YIELD $-.src as `from`, $-.dst as `to`, MAX($-.ranking) as rank",
-	//	edgeType)
-	nGql := fmt.Sprintf("LOOKUP ON %s where %s.block_id>=%s and %s.block_id<=%s yield src(edge) as src, dst(edge) as dst, rank(edge) AS ranking | GROUP BY $-.src, $-.dst YIELD $-.src as `from`, $-.dst as `to`, MAX($-.ranking) as rank",
-		edgeType, edgeType, startBlock, edgeType, endBlock)
-	res, err := db.Debug().Execute(nGql)
-	if err != nil {
-		return nil, err
-	} else {
-		result := make([]map[string]interface{}, 0)
-		err := UnmarshalResultSet(res, &result)
-		if err != nil {
-			return result, err
-		}
-		beego.Info("GetTxsMaxRank success! edgeType:", edgeType, " startBlock:", startBlock, " endBlock:", endBlock)
-		return result, nil
-	}
-}
-
 func InsertCoinTxs(nebulaDB *norm.DB, tx dbModels.ResSyncTransaction, rank int64) error {
 	if len(tx.Caller) == 0 {
 		tx.Caller = tx.From
 	}
 	tx.TxTimeStr = tx.TxTime.Format("2006-01-02 15:04:05")
 	rankStr := strconv.Itoa(int(rank))
-	err := InsertEdgeTypeGql(nebulaDB, constant.COINTXS, tx, rankStr)
+	err := InsertEdgeTypeGql(nebulaDB, constant.CoinTxs, tx, rankStr)
 	if err != nil {
 		beego.Error("InsertCoinTxs err: ", err, " txHash:", tx.TxHash)
 	} else {
@@ -102,7 +84,7 @@ func InsertCoinTxs(nebulaDB *norm.DB, tx dbModels.ResSyncTransaction, rank int64
 func InsertTokenTxs(nebulaDB *norm.DB, tx dbModels.ResSyncTransaction, rank int64) error {
 	tx.TxTimeStr = tx.TxTime.Format("2006-01-02 15:04:05")
 	rankStr := strconv.Itoa(int(rank))
-	err := InsertEdgeTypeGql(nebulaDB, constant.TOKENTXS, tx, rankStr)
+	err := InsertEdgeTypeGql(nebulaDB, constant.TokenTxs, tx, rankStr)
 	if err != nil {
 		beego.Error("InsertTokenTxs err: ", err, " txHash:", tx.TxHash)
 	} else {
@@ -122,7 +104,7 @@ func InsertNFTTxs(nebulaDB *norm.DB, tx dbModels.ResSyncTransaction, rank int64)
 
 	tx.TxTimeStr = tx.TxTime.Format("2006-01-02 15:04:05")
 	rankStr := strconv.Itoa(int(rank))
-	err := InsertEdgeTypeGql(nebulaDB, constant.NFTTXS, tx, rankStr)
+	err := InsertEdgeTypeGql(nebulaDB, constant.NftTxs, tx, rankStr)
 	if err != nil {
 		beego.Error("InsertNFTTxs err: ", err, " txHash:", tx.TxHash)
 	} else {
@@ -172,9 +154,28 @@ func InsertTxRank(db *norm.DB, from, to string, txRank int64) error {
 	return err
 }
 
+func GetTxsMaxRank(db *norm.DB, edgeType, startBlock, endBlock string) ([]map[string]interface{}, error) {
+	//nGql := fmt.Sprintf("LOOKUP ON %s yield src(edge) as src, dst(edge) as dst, rank(edge) AS ranking | GROUP BY $-.src, $-.dst YIELD $-.src as `from`, $-.dst as `to`, MAX($-.ranking) as rank",
+	//	edgeType)
+	nGql := fmt.Sprintf("LOOKUP ON %s where %s.block_id>=%s and %s.block_id<=%s yield src(edge) as src, dst(edge) as dst, rank(edge) AS ranking | GROUP BY $-.src, $-.dst YIELD $-.src as `from`, $-.dst as `to`, MAX($-.ranking) as rank",
+		edgeType, edgeType, startBlock, edgeType, endBlock)
+	res, err := db.Debug().Execute(nGql)
+	if err != nil {
+		return nil, err
+	} else {
+		result := make([]map[string]interface{}, 0)
+		err := UnmarshalResultSet(res, &result)
+		if err != nil {
+			return result, err
+		}
+		beego.Info("GetTxsMaxRank success! edgeType:", edgeType, " startBlock:", startBlock, " endBlock:", endBlock)
+		return result, nil
+	}
+}
+
 func QueryTxRank(db *norm.DB, key string) (int64, error) {
 	nql := fmt.Sprintf("LOOKUP ON `%s` where %s.key == '%s' YIELD properties(edge).tx_rank as tx_rank",
-		constant.TXRANK, constant.TXRANK, key)
+		constant.TxRanK, constant.TxRanK, key)
 	res, err := db.Debug().Execute(nql)
 	if err != nil {
 		return 0, err
@@ -338,6 +339,63 @@ func GetEdgeTypeTxsByTxHash(db *norm.DB, txHash, edgeType string) (int, error) {
 	}
 }
 
+// 交易图谱查询---------------------------------
+
+func dbExecute(nGql string) ([]map[string]interface{}, error) {
+	db := Init()
+	result := make([]map[string]interface{}, 0)
+	res, err := db.Debug().Execute(nGql)
+	if err != nil {
+		return nil, err
+	} else {
+		err := UnmarshalResultSet(res, &result)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return result, err
+}
+
+// 追溯NFT交易 合约地址、token_id from地址、步数
+func GetAddressTxs(fromAddress, txType, count string) ([]*apiModels.RespAddressTxAnalysis, error) {
+	db := Init()
+
+	var txEdge string
+	if txType == "1" {
+		txEdge = constant.CoinTxs
+	} else {
+		txEdge = constant.TokenTxs
+	}
+	//nGQL := fmt.Sprintf("MATCH (v:address{address:\"%s\"})-[e:%s]->(v2:address{address:\"%s\"}) RETURN sum(properties(e).amount) AS total_amount ,count(*) as tx_count ", fromAddress, txEdge, toAddress)
+	nGQL := fmt.Sprintf("MATCH (v:address{address:\"%s\"})-[e:%s]->(v2:address) RETURN e.to_address as to_address, sum(properties(e).amount) AS total_amount, count(*) as tx_count limit %s ", fromAddress, txEdge, count)
+
+	result := make([]map[string]interface{}, 0)
+	res, err := db.Debug().Execute(nGQL)
+	if err != nil {
+		return nil, err
+	} else {
+		err := UnmarshalResultSet(res, &result)
+		if err != nil {
+			return nil, err
+		}
+		//result []map[string]interface{}
+		paths := make([]*apiModels.RespAddressTxAnalysis, 0, len(result))
+
+		for _, vpath := range result {
+			for _, v := range vpath {
+				fmt.Println("v-->:", v)
+				//if path, ok := v.(*nebula.NList); ok {
+				//	pathValue := path.GetValues()
+				//	steps := ParseTxInfo(pathValue)
+				//	tokenRoute := new(TxsRoute)
+				//	tokenRoute.Steps = steps
+				//	paths = append(paths, tokenRoute)
+				//}
+			}
+		}
+		return paths, nil
+	}
+}
 
 func TraceNFTTxs(address string) ([]*TxsRoute, error) {
 	db := Init()
@@ -368,14 +426,13 @@ func TraceNFTTxs(address string) ([]*TxsRoute, error) {
 	}
 }
 
-
-
-func QueryNFTTxsPath(db *norm.DB, contractAddress, input string) ([]*TxsRoute, error) {
-	nGQL := fmt.Sprintf("MATCH (v)-[e:NFT_Txs]->(v2) where e.token_address==\"%s\"", contractAddress)
+func QueryNFTTxsPath(contractAddress, input string) ([]*TxsRoute, error) {
+	nGQL := fmt.Sprintf("MATCH p=(v)-[e:NFT_Txs]->(v2) where e.token_address==\"%s\"", contractAddress)
 	if strings.HasPrefix(input, "0x") {
 		if len(input) == 66 {
 			nGQL += fmt.Sprintf(" and e.tx_hash==\"%s\"", input)
-			nGQL += " RETURN v,e,v2 limit 1"
+			nGQL += " RETURN v as from_address,e as tx,v2 as to_address limit 1"
+			//nGQL += " RETURN p "
 			//nGQL =fmt.Sprintf("LOOKUP ON NFT_Txs WHERE NFT_Txs.tx_hash == \"%s\" YIELD properties(edge).from_address AS from_address, properties(edge).to_address AS to_address,properties(edge).tx_hash as tx_hash", input)
 		} else {
 			//todo
@@ -388,31 +445,41 @@ func QueryNFTTxsPath(db *norm.DB, contractAddress, input string) ([]*TxsRoute, e
 		nGQL += " RETURN v,e,v2 limit 1"
 	}
 
-	result := make([]map[string]interface{}, 0)
-	res, err := db.Debug().Execute(nGQL)
-	if err != nil {
+	result, err := dbExecute(nGQL)
+	if err != nil || len(result) == 0 {
 		return nil, err
-	} else {
-		err := UnmarshalResultSet(res, &result)
-		if err != nil {
-			return nil, err
-		}
-		//result []map[string]interface{}
-		paths := make([]*TxsRoute, 0, len(result))
-
-		for _, vpath := range result {
-			for _, v := range vpath {
-				if path, ok := v.(*nebula.NList); ok {
-					pathValue := path.GetValues()
-					steps := ParseTxInfo(pathValue)
-					tokenRoute := new(TxsRoute)
-					tokenRoute.Steps = steps
-					paths = append(paths, tokenRoute)
-				}
-			}
-		}
-		return paths, nil
 	}
+
+	paths := make([]*TxSteps, 0, len(result))
+
+	//result是一个数组
+	//vpath是一个值
+	//v nebula.Vertex
+	for _, vpath := range result {
+		for _, v := range vpath {
+			// nebula.Value
+			if path, ok := v.(*nebula.Vertex); ok {
+				pathValue := path.GetTags()
+				//steps := ParseTxInfo(pathValue)
+				fmt.Println("pathValue-------:", pathValue)
+				//tokenRoute := new(TxsRoute)
+				//tokenRoute.Steps = steps
+				//paths = append(paths, tokenRoute)
+			}
+			if path, ok := v.(*nebula.Edge); ok {
+				pathValue := path.GetProps()
+				//steps := ParseTxInfo(pathValue)
+				fmt.Println("pathValue-------:", pathValue)
+				//tokenRoute := new(TxsRoute)
+				//tokenRoute.Steps = steps
+				//paths = append(paths, tokenRoute)
+			}
+			fmt.Println("v-------:", v)
+		}
+	}
+
+	fmt.Println("vpaths-------:", paths)
+	return nil, nil
 }
 
 // 追溯NFT交易 合约地址、token_id from地址、步数

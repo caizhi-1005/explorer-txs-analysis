@@ -29,11 +29,10 @@ func (this *NebulaService) TraceNFTTxs(req apiModels.ReqNFTTrace) ([]*nebulaMode
 
 //根据指定条件(tokenID address txHash)，查询所有入账记录
 func (this *NebulaService) NFTStartAnalysis(contractAddress, input string) ([]*nebulaModels.TxsRoute, error) {
-	nebulaDB := nebulaModels.Init()
 
 	//todo 怎么确定是否是最后一个或第一个
 	//from= 0x0000000000000000000000000000000000000000 是开始， to 是owner
-	txsRoute, err := nebulaModels.QueryNFTTxsPath(nebulaDB, contractAddress, input)
+	txsRoute, err := nebulaModels.QueryNFTTxsPath(contractAddress, input)
 	if err != nil {
 		return nil, err
 	}

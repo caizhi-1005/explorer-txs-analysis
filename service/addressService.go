@@ -5,9 +5,20 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/server/txs-analysis/models/apiModels"
 	"github.com/server/txs-analysis/models/dbModels"
+	"github.com/server/txs-analysis/models/nebulaModels"
 )
 
 type AddressService struct {
+}
+
+
+// AddressTxList 可查的token下拉列表
+func (this *AddressService) AddressTokenList(req apiModels.ReqContractList) ([]*apiModels.RespContractList, error) {
+	contracts, err := dbModels.QueryContractList(req.TxType, req.Name)
+	if err != nil && err != orm.ErrNoRows {
+		beego.Error("dbModels.QueryContractList error.", err)
+	}
+	return contracts, nil
 }
 
 // AddressDetail 地址分析-地址详情
@@ -45,13 +56,10 @@ func (this *AddressService) AddressDetail(address string) (*apiModels.RespAddres
 }
 
 // AddressTxAnalysis 地址分析-地址交易图
-func (this *AddressService) AddressTxAnalysis(req apiModels.ReqTxAnalysis) ([]*apiModels.RespAddressDetail, error) {
+func (this *AddressService) AddressTxAnalysis(req apiModels.ReqAddressTxGraph) ([]*apiModels.RespAddressTxAnalysis, error) {
 	//accountInfo, err := dbModels.GetAddressTxList(address)
-
-	reqGraph := apiModels.ReqAddressTxGraph{}
-	reqGraph.Address = req.Address
-	reqGraph.Type = "0"
-	res, err := dbModels.TxGraphData(reqGraph)
+	//res, err := dbModels.TxGraphData(reqGraph)
+	res, err := nebulaModels.GetAddressTxs(req.Address, req.Type, req.Count)
 	if err != nil {
 		beego.Error("dbModels.TxGraphData error.", err)
 	}

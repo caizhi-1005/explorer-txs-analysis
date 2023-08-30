@@ -13,6 +13,8 @@ func init() {
 	ns := beego.NewNamespace("/api",
 		//地址分析
 		beego.NSNamespace("address",
+			//可查的token下拉列表
+			beego.NSRouter("/tokenList", &controllers.AddressController{}, "post:AddressTokenList"),
 			//地址详情
 			beego.NSRouter("/detail", &controllers.AddressController{}, "post:AddressDetail"),
 			//地址分析图

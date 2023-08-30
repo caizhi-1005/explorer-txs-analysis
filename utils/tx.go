@@ -6,11 +6,11 @@ func GetMethod(inputData string) string {
 	if len(inputData) >= 10 {
 		switch inputData[:10] {
 		case constant.TransferCode:
-			return constant.Transfer
+			return constant.TransferMethod
 		case constant.TransferEventCode:
-			return constant.Transfer
+			return constant.TransferMethod
 		case constant.MintCode:
-			return constant.Mint
+			return constant.MintMethod
 		default:
 			return ""
 		}

@@ -13,6 +13,22 @@ type AddressController struct {
 	addressService service.AddressService
 }
 
+// AddressTokenList 可查的token下拉列表
+func (this *AddressController) AddressTokenList() {
+	this.IsPost()
+	Req := apiModels.ReqContractList{}
+	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
+		beego.Error(constant.ErrParam, err)
+		this.ResponseInfo(500, constant.ErrParam, nil)
+	}
+	res, err := this.addressService.AddressTokenList(Req)
+	if err != nil {
+		beego.Error(constant.ErrSystem, err)
+		this.ResponseInfo(500, constant.ErrSystem, nil)
+	}
+	this.ResponseInfo(200, nil, res)
+}
+
 // AddressDetail 地址分析-地址详情
 func (this *AddressController) AddressDetail() {
 	this.IsPost()
@@ -37,7 +53,8 @@ func (this *AddressController) AddressDetail() {
 // todo 1
 func (this *AddressController) AddressTxAnalysis() {
 	this.IsPost()
-	Req := apiModels.ReqTxAnalysis{}
+	//Req := apiModels.ReqTxAnalysis{}
+	Req := apiModels.ReqAddressTxGraph{}
 	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
 		beego.Error(constant.ErrParam, err)
 		this.ResponseInfo(500, constant.ErrParam, nil)

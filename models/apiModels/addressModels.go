@@ -1,5 +1,19 @@
 package apiModels
 
+type ReqContractList struct {
+	Name   string `json:"name"`
+	TxType string `json:"tx_type"`
+}
+
+type RespContractList struct {
+	Symbol          string `json:"label"`
+	//Symbol          string `json:"symbol"`
+	//ContractAddress string `json:"contract_address"`
+	ContractAddress string `json:"value"`
+	Name            string `json:"name"`
+	Logo            string `json:"logo"`
+}
+
 type RespAddressDetail struct {
 	Address            string  `json:"address"`
 	Type               int     `json:"type"`
@@ -27,18 +41,6 @@ type AddressVertex struct {
 	Address    string `json:"address,omitempty"`
 	SrcAddress string `json:"srcAddress,omitempty"`
 	IsInit     bool   `json:"isInit,omitempty"`
-}
-
-type TxEdge struct {
-	From                 string  `json:"from,omitempty"`
-	SrcAddress           string  `json:"srcAddress,omitempty"`
-	Index                int     `json:"index,omitempty"`
-	FlowType             int     `json:"flowType,omitempty"`
-	To                   string  `json:"to,omitempty"`
-	TotalValue           float64 `json:"totalValue,omitempty"`
-	TxCount              int     `json:"txCount,omitempty"`
-	FirstTransactionTime int     `json:"firstTransactionTime,omitempty"`
-	LastTransactionTime  int     `json:"lastTransactionTime,omitempty"`
 }
 
 type Nodes struct {

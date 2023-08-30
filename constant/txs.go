@@ -9,10 +9,10 @@ const (
 )
 
 const (
-	TXRANK   = "Tx_Rank"
-	COINTXS  = "Coin_Txs"
-	TOKENTXS = "Token_Txs"
-	NFTTXS   = "NFT_Txs"
+	TxRanK   = "Tx_Rank"
+	CoinTxs  = "Coin_Txs"
+	TokenTxs = "Token_Txs"
+	NftTxs   = "NFT_Txs"
 )
 
 const (
@@ -25,6 +25,7 @@ const (
 	TransferEventCode = "0xddf252ad"
 	MintCode          = "0xa0712d68"
 
-	Transfer = "Transfer"
-	Mint     = "Mint"
+	TransferMethod = "Transfer"
+	MintMethod     = "Mint"
 )
+

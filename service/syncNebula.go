@@ -291,7 +291,7 @@ func SyncCoinTxsDataToNebula(startNum, endNum string) error {
 	if len(txList) > 0 {
 		for _, v := range txList {
 			//获取rank
-			key := constant.COINTXS + v.From + v.To
+			key := constant.CoinTxs + v.From + v.To
 			coinRank, ok := txsRankMap[key]
 			if !ok {
 				coinRank = 0
@@ -330,7 +330,7 @@ func SyncCoinTxsDataToNebula(startNum, endNum string) error {
 
 	if len(txInternalList) > 0 {
 		for _, v := range txInternalList {
-			key := constant.COINTXS + v.From + v.To
+			key := constant.CoinTxs + v.From + v.To
 			coinRank, ok := txsRankMap[key]
 			if !ok {
 				coinRank = 0
@@ -375,7 +375,7 @@ func SyncTokenTxsDataToNebula(startNum, endNum string) error {
 
 	if len(txList) > 0 {
 		for _, v := range txList {
-			key := constant.TOKENTXS + v.From + v.To
+			key := constant.TokenTxs + v.From + v.To
 			tokenRank, ok := txsRankMap[key]
 			if !ok {
 				tokenRank = 0
@@ -421,7 +421,7 @@ func SyncNFTTxsDataToNebula(startNum, endNum string) error {
 
 	if len(txList) > 0 {
 		for _, v := range txList {
-			key := constant.NFTTXS + v.From + v.To
+			key := constant.NftTxs + v.From + v.To
 			nftRank, ok := txsRankMap[key]
 			if !ok {
 				nftRank = 0

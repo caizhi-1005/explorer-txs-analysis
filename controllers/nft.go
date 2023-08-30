@@ -170,6 +170,7 @@ func (this *NFTController) NFTTrace() {
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
 
+	//result, err := this.nebulaService.TraceNFTTxs(Req)
 	result, err := this.nebulaService.GetNFTTxsPath(Req)
 	if err != nil {
 		beego.Error("NFT NFTTransferDetailByTokenId error.", err)
