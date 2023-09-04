@@ -2,6 +2,7 @@ package dbModels
 
 import (
 	"github.com/astaxie/beego/orm"
+	"github.com/server/txs-analysis/models/apiModels"
 	"time"
 )
 
@@ -66,7 +67,7 @@ func AccountInfoList(filters ...interface{}) ([]*TbAccountInfo, error) {
 func GetSyncAddressData(start, end string) ([]*TbAccountInfo, error) {
 	ormer := orm.NewOrm()
 	list := make([]*TbAccountInfo, 0)
-	sql := "select account_address,account_type from tb_account_info where block_id >=" + start + " and block_id <=" + end
+	sql := "select account_address, account_type from tb_account_info where block_id >=" + start + " and block_id <=" + end
 	_, err := ormer.Raw(sql).QueryRows(&list)
 	if err != nil {
 		return list, err
@@ -75,9 +76,9 @@ func GetSyncAddressData(start, end string) ([]*TbAccountInfo, error) {
 }
 
 
-func GetAddressInfo(address string) (*TbAccountInfo, error) {
+func GetAddressInfo(address string) (*apiModels.RespContractAddressInfo, error) {
 	ormer := orm.NewOrm()
-	var accountInfo *TbAccountInfo
+	var accountInfo *apiModels.RespContractAddressInfo
 	//accountInfo := new(TbAccountInfo)
 	sql := "select account_type, balance from tb_account_info where account_address ='" + address + "'"
 	err := ormer.Raw(sql).QueryRow(&accountInfo)

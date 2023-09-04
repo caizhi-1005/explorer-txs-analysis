@@ -3,6 +3,7 @@ package nebulaModels
 import (
 	"errors"
 	"fmt"
+	"github.com/vesoft-inc/nebula-go/v3/nebula"
 	"github.com/zhihu/norm/dialectors"
 	"reflect"
 )
@@ -164,4 +165,100 @@ func toMapSlice(values *[]map[string]interface{}, resultSet *dialectors.ResultSe
 	}
 	*values = append(*values, _values...)
 	return nil
+}
+
+
+func ParseNebulaResult(resList []map[string]interface{}) RespGraph {
+	var res RespGraph
+	resVertex := make([]*AddressTag, 0)
+	resEdge := make([]*TxsEdge, 0)
+	for _, res := range resList {
+		var e TxsEdge
+		for k, v := range res {
+
+			if k == "total_amount" {
+				e.TotalAmount = v.(float64)
+			}
+			if k == "tx_count" {
+				e.TxCount = v.(int64)
+			}
+
+			//todo // map[string]interface{}
+			//if mapRes, ok := v.(map[string]interface{}); ok {
+			//	if _, ok := mapRes["v"]; ok {
+			//		fmt.Println("v:",mapRes["v"])
+			//	}
+			//	if _, ok := mapRes["e"]; ok {
+			//		fmt.Println("e:",mapRes["e"])
+			//	}
+			//
+			//}
+			// *nebula.Vertex
+			if vertex, ok := v.(*nebula.Vertex); ok {
+				tags := vertex.GetTags()
+				if len(tags) == 0 {
+					src := getValueofValue(vertex.GetVid())
+					var a AddressTag
+					a.Address = src
+					resVertex = append(resVertex, &a)
+				}else {
+					srcs := getValueofAddresses(vertex.GetTags())
+					for _, v := range srcs {
+						resVertex = append(resVertex, v)
+					}
+				}
+			}
+			// *nebula.Edge
+			if edge, ok := v.(*nebula.Edge); ok {
+				e = getTxEdgeInfoFromProps(edge)
+			}
+			// *nebula.NList
+			if nList, ok := v.(*nebula.NList); ok {
+				pathValue := nList.GetValues()
+				for _, v := range pathValue {
+					if v.IsSetVVal() {
+						for _, n := range v.GetVVal().GetTags() {
+							src := getValueofAddress(n)
+							resVertex = append(resVertex, &src)
+						}
+					}
+					if v.IsSetEVal() {
+						ed := getTxEdgeInfoFromProps(v.GetEVal())
+						resEdge = append(resEdge, &ed)
+					}
+				}
+			}
+		}
+		if !reflect.DeepEqual(e, TxsEdge{}) {
+			resEdge = append(resEdge, &e)
+		}
+	}
+
+	res.Edge = resEdge
+	res.Vertex = resVertex
+	return res
+}
+
+
+func ParseAddressTxNebula(resList []map[string]interface{}) RespGraph {
+	var res RespGraph
+	resVertex := make([]*AddressTag, 0)
+	resEdge := make([]*TxsEdge, 0)
+
+	for _, res := range resList {
+		var e TxsEdge
+
+		for k, v := range res {
+			if k == "total_amount" {
+				e.TotalAmount = v.(float64)
+			}
+			if k == "tx_count" {
+				e.TxCount = v.(int64)
+			}
+		}
+		resEdge = append(resEdge, &e)
+	}
+	res.Edge = resEdge
+	res.Vertex = resVertex
+	return res
 }

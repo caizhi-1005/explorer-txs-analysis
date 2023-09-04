@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
 	"os"
@@ -52,6 +53,17 @@ func StringInt64(data string) int64 {
 	return string_int64
 }
 
+//string转换float64
+func StringFloat64(data string) float64 {
+	var string_float64 float64
+	if data != "" {
+		string_float64, _ = strconv.ParseFloat(data, 64)
+	} else {
+		string_float64 = 0
+	}
+	return string_float64
+}
+
 //float64转换string
 func Float64String(data float64) string {
 	var float64_strig string
@@ -65,4 +77,10 @@ func ConvertTokenID(tokenID string) (string, error) {
 		return "", errors.New("parse token id error")
 	}
 	return common.BigToHash(b).String(), nil
+}
+
+func Decimal(value float64, decimal float64) float64 {
+	format := "%." + Float64String(decimal) + "f"
+	value, _ = strconv.ParseFloat(fmt.Sprintf(format, value), 64)
+	return value
 }

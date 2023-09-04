@@ -12,7 +12,6 @@ import (
 type NFTController struct {
 	BaseController
 	nftService service.NftService
-	nebulaService  service.NebulaService
 }
 
 // NFTList NFT溯源-全部NFT列表(下拉列表)
@@ -47,20 +46,19 @@ func (this *NFTController) TokenIdList() {
 // NFTAddressDetail NFT溯源-地址详情
 func (this *NFTController) NFTAddressDetail() {
 	this.IsPost()
-	//Req := apiModels.ReqNFTAddressDetail{}
-	//if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
-	//	beego.Error(constant.ErrParam, err)
-	//	this.ResponseInfo(500, constant.ErrParam, nil)
-	//}
-	//
-	////Res := apiModels.RespNFTAddressDetail{}
-	//result, err := this.nftService.NFTAddressDetail(Req)
-	//if err != nil && err != orm.ErrNoRows{
-	//	beego.Error("NFT NFTAddressDetail error.", err)
-	//	this.ResponseInfo(500, "NFT NFTAddressDetail error.", err)
-	//	return
-	//}
-	//this.ResponseInfo(200, nil, result)
+	Req := apiModels.ReqNFTAddressDetail{}
+	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
+		beego.Error(constant.ErrParam, err)
+		this.ResponseInfo(500, constant.ErrParam, nil)
+	}
+
+	result, err := this.nftService.NFTAddressDetail(Req)
+	if err != nil && err != orm.ErrNoRows{
+		beego.Error("NFT NFTAddressDetail error.", err)
+		this.ResponseInfo(500, "NFT NFTAddressDetail error.", err)
+		return
+	}
+	this.ResponseInfo(200, nil, result)
 }
 
 // NFTTransferDetailByAddress NFT溯源-地址详情-流转详情
@@ -141,7 +139,6 @@ func (this *NFTController) NFTTransferDetailByTokenId() {
 
 
 // NFTStartAnalysis NFT溯源-NFT开始分析-交易图
-//todo 按照前端需求，返回指定格式
 func (this *NFTController) NFTStartAnalysis() {
 	this.IsPost()
 	Req := apiModels.ReqNFTStartAnalysis{}
@@ -150,7 +147,12 @@ func (this *NFTController) NFTStartAnalysis() {
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
 
-	result, err := this.nebulaService.NFTStartAnalysis(Req.ContractAddress, Req.Input)
+	if len(Req.Field) == 0 || len(Req.Value) == 0 || len(Req.ContractAddress) == 0 {
+		beego.Error(constant.ErrParam)
+		this.ResponseInfo(500, constant.ErrParam, nil)
+	}
+
+	result, err := this.nftService.NFTStartAnalysis(Req)
 	if err != nil {
 		beego.Error("NFT NFTStartAnalysis error.", err)
 		this.ResponseInfo(500, "NFT NFTStartAnalysis error.", err)
@@ -161,7 +163,6 @@ func (this *NFTController) NFTStartAnalysis() {
 
 
 // NFTTrace NFT溯源-NFT追溯-交易图
-//todo 按照前端需求，返回指定格式
 func (this *NFTController) NFTTrace() {
 	this.IsPost()
 	Req := apiModels.ReqNFTTrace{}
@@ -170,8 +171,7 @@ func (this *NFTController) NFTTrace() {
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
 
-	//result, err := this.nebulaService.TraceNFTTxs(Req)
-	result, err := this.nebulaService.GetNFTTxsPath(Req)
+	result, err := this.nftService.NFTTrace(Req)
 	if err != nil {
 		beego.Error("NFT NFTTransferDetailByTokenId error.", err)
 		this.ResponseInfo(500, "NFT NFTTransferDetailByTokenId error.", err)

@@ -6,12 +6,25 @@ type ReqContractList struct {
 }
 
 type RespContractList struct {
-	Symbol          string `json:"label"`
+	Symbol string `json:"label"`
 	//Symbol          string `json:"symbol"`
 	//ContractAddress string `json:"contract_address"`
 	ContractAddress string `json:"value"`
 	Name            string `json:"name"`
 	Logo            string `json:"logo"`
+}
+
+type ReqAddressDetail struct {
+	ReqCommon
+	ContractAddress string `json:"contract_address"`
+}
+
+type RespContractAddressInfo struct {
+	Address     string  `json:"address"`
+	AccountType int     `json:"account_type"`
+	Balance     float64 `json:"balance"`
+	Symbol      string  `json:"symbol"`
+	Decimals    int64   `json:"decimals"`
 }
 
 type RespAddressDetail struct {
@@ -67,8 +80,9 @@ type RespTxDetailInfo struct {
 }
 
 type ReqAddressTxDetail struct {
-	From string `json:"from"`
-	To   string `json:"to"`
+	From            string `json:"from"`
+	To              string `json:"to"`
+	ContractAddress string `json:"contract_address"`
 }
 
 type ReqAddressTxList struct {

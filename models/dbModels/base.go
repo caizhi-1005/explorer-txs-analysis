@@ -19,15 +19,6 @@ func init() {
 	orm.RegisterDataBase("default", "mysql",
 		dbuser+":"+dbpassword+"@tcp("+dbhost+":"+dbport+")/"+dbname+"?charset=utf8&parseTime=True",
 		maxIdle, maxConn)
-	// 初始化用户模块数据库
-	userDBHost := beego.AppConfig.String("mysql::userdbhost")
-	userDBPort := beego.AppConfig.String("mysql::userdbport")
-	userDBUser := beego.AppConfig.String("mysql::userdbuser")
-	userDBPassword := beego.AppConfig.String("mysql::userdbpassword")
-	userDBName := beego.AppConfig.String("mysql::userdbname")
-	orm.RegisterDataBase("user", "mysql",
-		userDBUser+":"+userDBPassword+"@tcp("+userDBHost+":"+userDBPort+")/"+userDBName+"?charset=utf8&parseTime=True",
-		5, 50)
 
 	if "dev" == beego.AppConfig.String("runmode") {
 		orm.Debug = true

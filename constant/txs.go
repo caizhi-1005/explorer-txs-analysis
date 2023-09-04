@@ -1,11 +1,16 @@
 package constant
 
 const (
-	TxHash      = "tx_hash"
-	TxTime      = "tx_time"
-	FromAddress = "from_address"
-	ToAddress   = "to_address"
-	Amount      = "amount"
+	BlockId      = "block_id"
+	TxHash       = "tx_hash"
+	TxTime       = "tx_time"
+	FromAddress  = "from_address"
+	ToAddress    = "to_address"
+	Value        = "value"
+	Amount       = "amount"
+	TokenId      = "token_id"
+	TxType       = "tx_type"
+	TokenAddress = "token_address"
 )
 
 const (
@@ -29,3 +34,4 @@ const (
 	MintMethod     = "Mint"
 )
 
+const BASE_TOKEN_DECIMAL float64 = 18

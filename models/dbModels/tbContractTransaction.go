@@ -43,6 +43,36 @@ func init() {
 	orm.RegisterModel(new(TbContractTransaction))
 }
 
+// 地址分析-交易详情-合约交易列表
+func GetAddressTokenTxDetailList(fromAddress, toAddress, contractAddr string) (Res []*apiModels.RespAddressTxList, err error) {
+	ormer := orm.NewOrm()
+	condition := " and t.token_address = '" + contractAddr + "'"
+	sqlStr := "SELECT t.tx_time, t.tx_hash, t.amount, c.symbol from tb_contract_transaction t left join tb_contract c on t.token_address = c.contract_address WHERE c.name != '' and c.symbol != '' and t.`from`= '" + fromAddress + "' and t.`to`= '" + toAddress + "'" + condition
+	_, err = ormer.Raw(sqlStr).QueryRows(&Res)
+	return
+}
+
+// TokenIDList 根据查询条件获取Token ID列表
+func TokenIDList(req apiModels.ReqTokenIDList) ([]string, error) {
+	var tokenIds []string
+	var condition string
+	if req.Field == "address" {
+		condition = "(`from` = '" + req.Value + "' or `to` = '" + req.Value + "')"
+	}
+	if req.Field == "tx_hash" {
+		condition = "tx_hash = '" + req.Value + "'"
+	}
+
+	ormer := orm.NewOrm()
+	order := "ORDER BY tx_time ASC"
+	sqlStr := " select distinct(token_id) as token_id from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and " + condition + order
+	_, err := ormer.Raw(sqlStr).QueryRows(&tokenIds)
+	if err != nil {
+		return nil, err
+	}
+	return tokenIds, nil
+}
+
 // NFTTransferDetails NFT溯源-NFT流转详情列表
 func NFTTransferDetails(req apiModels.ReqNFTTransferDetailsByAddress) ([]*apiModels.RespNFTTransferDetailsByAddress, error) {
 	list := make([]*apiModels.RespNFTTransferDetailsByAddress, 0)
@@ -93,7 +123,7 @@ func NFTTransferDetailByTokenId(req apiModels.ReqNFTTransferDetailsByTokenId) ([
 	req.TokenID = common.BigToHash(tokenId).String()
 
 	sqlStr := "SELECT c.`from`, c.`to`, c.tx_time, t.input_data as method from tb_contract_transaction c join tb_transaction t on c.tx_hash = t.tx_hash where c.token_id = '" + req.TokenID + "' and token_address= '" + req.ContractAddress + "'" +
-		" LIMIT " + req.Length + " OFFSET " + offsetStr
+		" ORDER BY tx_time desc LIMIT " + req.Length + " OFFSET " + offsetStr
 	_, err := orm.Raw(sqlStr).QueryRows(&res)
 	if err != nil {
 		return nil, err

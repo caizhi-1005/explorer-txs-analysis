@@ -14,6 +14,8 @@ import (
 	"strings"
 )
 
+//----------数据同步 start-------------------------
+
 func PrepareTxs(db *norm.DB) error {
 	err := prepareTxRank(db)
 	if err != nil {
@@ -209,7 +211,11 @@ func DeleteTxs(edgeType, blockId string) error {
 	return nil
 }
 
-func QueryTxRoute(db *norm.DB, address string) ([]*TxsRoute, error) {
+//----------数据同步 end-------------------------
+
+// QueryTxRoute 查两步以内入账交易
+func QueryTxRoute(address string) ([]*TxsRoute, error) {
+	db := Init()
 	nql := fmt.Sprintf("MATCH p=(v:address)-[e:transaction*1..2]->(v2:address{address:\"%s\"}) RETURN e AS p", address)
 	result := make([]map[string]interface{}, 0)
 	res, err := db.Debug().Execute(nql)
@@ -278,6 +284,7 @@ func GetTxEdgeInfoFromProps(edge *nebula.Edge) TransactionEdge {
 	return tx
 }
 
+// GetEdgeTypeTxs 根据边的属性查边和数量
 func GetEdgeTypeTxs(db *norm.DB, edgeType string, tx *dbModels.ResSyncTransaction) (int64, error) {
 	var nGql string
 	if len(tx.ContractAddress) > 0 {
@@ -310,6 +317,7 @@ func GetEdgeTypeTxs(db *norm.DB, edgeType string, tx *dbModels.ResSyncTransactio
 	}
 }
 
+// GetEdgeTypeTxsByTxHash 根据边的属性(tx_hash)查边和数量
 func GetEdgeTypeTxsByTxHash(db *norm.DB, txHash, edgeType string) (int, error) {
 	nGql := fmt.Sprintf("LOOKUP ON `%s` where %s.tx_hash == \"%s\"  yield edge as tx | YIELD COUNT(*) AS count ", edgeType, edgeType, txHash)
 
@@ -339,8 +347,9 @@ func GetEdgeTypeTxsByTxHash(db *norm.DB, txHash, edgeType string) (int, error) {
 	}
 }
 
-// 交易图谱查询---------------------------------
+//---------------------------- 交易图谱查询---------------------------------
 
+// dbExecute 执行方法
 func dbExecute(nGql string) ([]map[string]interface{}, error) {
 	db := Init()
 	result := make([]map[string]interface{}, 0)
@@ -356,88 +365,82 @@ func dbExecute(nGql string) ([]map[string]interface{}, error) {
 	return result, err
 }
 
-// 追溯NFT交易 合约地址、token_id from地址、步数
-func GetAddressTxs(fromAddress, txType, count string) ([]*apiModels.RespAddressTxAnalysis, error) {
-	db := Init()
+// AddressTxAnalysis 地址分析-地址交易图
+func AddressTxAnalysis(req apiModels.ReqAddressTxGraph) (*RespGraph, error) {
 
-	var txEdge string
-	if txType == "1" {
-		txEdge = constant.CoinTxs
-	} else {
-		txEdge = constant.TokenTxs
+	//todo 支持查转入 转出 全部
+	tagConditionV := ""
+	tagConditionV2 := ""
+	eCondition := ""
+	eCondition = constant.CoinTxs
+	if len(req.ContractAddress) > 0 {
+		eCondition = constant.TokenTxs + "{token_address:'" + req.ContractAddress + "',"
 	}
-	//nGQL := fmt.Sprintf("MATCH (v:address{address:\"%s\"})-[e:%s]->(v2:address{address:\"%s\"}) RETURN sum(properties(e).amount) AS total_amount ,count(*) as tx_count ", fromAddress, txEdge, toAddress)
-	nGQL := fmt.Sprintf("MATCH (v:address{address:\"%s\"})-[e:%s]->(v2:address) RETURN e.to_address as to_address, sum(properties(e).amount) AS total_amount, count(*) as tx_count limit %s ", fromAddress, txEdge, count)
+	if req.Direction == "out" {
+		tagConditionV = "{address:'" + req.Address + "'}"
+	}
+	if req.Direction == "in" {
+		tagConditionV2 = "{address:'" + req.Address + "'}"
+	}
 
-	result := make([]map[string]interface{}, 0)
-	res, err := db.Debug().Execute(nGQL)
-	if err != nil {
+	nGQL := fmt.Sprintf("MATCH (v:address%s)-[e:%s]->(v2:address%s) RETURN v,e,v2, sum(properties(e).amount) AS total_amount, count(*) as tx_count order by total_amount desc limit %s ", tagConditionV, eCondition, tagConditionV2, req.Count)
+
+	result, err := dbExecute(nGQL)
+	if err != nil || len(result) == 0 {
 		return nil, err
-	} else {
-		err := UnmarshalResultSet(res, &result)
-		if err != nil {
-			return nil, err
-		}
-		//result []map[string]interface{}
-		paths := make([]*apiModels.RespAddressTxAnalysis, 0, len(result))
-
-		for _, vpath := range result {
-			for _, v := range vpath {
-				fmt.Println("v-->:", v)
-				//if path, ok := v.(*nebula.NList); ok {
-				//	pathValue := path.GetValues()
-				//	steps := ParseTxInfo(pathValue)
-				//	tokenRoute := new(TxsRoute)
-				//	tokenRoute.Steps = steps
-				//	paths = append(paths, tokenRoute)
-				//}
-			}
-		}
-		return paths, nil
 	}
+	res := ParseNebulaResult(result)
+	return &res, nil
 }
 
-func TraceNFTTxs(address string) ([]*TxsRoute, error) {
-	db := Init()
-	nql := fmt.Sprintf("MATCH p=(v:address)-[e:transaction*1..2]->(v2:address{address:\"%s\"}) RETURN e AS p", address)
-	result := make([]map[string]interface{}, 0)
-	res, err := db.Debug().Execute(nql)
-	if err != nil {
-		return nil, err
-	} else {
-		err := UnmarshalResultSet(res, &result)
-		if err != nil {
-			return nil, err
-		}
-		paths := make([]*TxsRoute, 0, len(result))
-
-		for _, vpath := range result {
-			for _, v := range vpath {
-				if path, ok := v.(*nebula.NList); ok {
-					pathValue := path.GetValues()
-					steps := ParseTxInfo(pathValue)
-					tokenRoute := new(TxsRoute)
-					tokenRoute.Steps = steps
-					paths = append(paths, tokenRoute)
-				}
-			}
-		}
-		return paths, nil
+// NFTStartAnalysis NFT溯源-开始分析
+func NFTStartAnalysis(req apiModels.ReqNFTStartAnalysis) (*RespGraph, error) {
+	nGQL := fmt.Sprintf("MATCH p=(v)-[e:NFT_Txs]->(v2) where e.token_address==\"%s\"", req.ContractAddress)
+	if req.Field == "tx_hash" {
+		nGQL += fmt.Sprintf(" and e.tx_hash==\"%s\" and e.token_id== \"%s\" RETURN v, e ,v2 limit 1", req.Value, req.TokenId)
+		//nGQL =fmt.Sprintf("LOOKUP ON NFT_Txs WHERE NFT_Txs.tx_hash == \"%s\" YIELD properties(edge).from_address AS from_address, properties(edge).to_address AS to_address,properties(edge).tx_hash as tx_hash", input)
 	}
+
+	if req.Field == "address" {
+		//nGQL = fmt.Sprintf("MATCH (v)-[e:NFT_Txs]->(v2),(v3)-[e2:NFT_Txs]->(v4) where e.token_address==\"%s\" and e.to_address==\"%s\" and e2.token_address==\"%s\" and e2.from_address==\"%s\" e.token_id== \"%s\" RETURN v,e,e2,v4 limit 1", req.ContractAddress, req.Value, req.ContractAddress, req.Value, req.TokenId)
+		nGQL = fmt.Sprintf("MATCH (v)-[e:NFT_Txs{token_address:'%s',to_address:'%s',token_id:'%s'}]->(v2),(v3)-[e2:NFT_Txs{token_address:'%s',from_address:'%s',token_id:'%s'}]->(v4)  RETURN v,e,e2,v4 limit 1", req.ContractAddress, req.Value, req.TokenId, req.ContractAddress, req.Value, req.TokenId)
+	}
+
+	if req.Field == "token_id" {
+		//nGQL =fmt.Sprintf("LOOKUP ON NFT_Txs WHERE NFT_Txs.token_id == \"%s\" YIELD properties(edge).from_address AS from_address, properties(edge).to_address AS to_address,properties(edge).tx_hash as tx_hash", input)
+		nGQL += fmt.Sprintf(" and e.from_address==\"0x0000000000000000000000000000000000000000\" and e.token_id==\"%s\"", req.Value)
+		nGQL += " RETURN v,e,v2 limit 1"
+	}
+
+	result, err := dbExecute(nGQL)
+	if err != nil || len(result) == 0 {
+		return nil, err
+	}
+	res := ParseNebulaResult(result)
+	return &res, nil
 }
 
-func QueryNFTTxsPath(contractAddress, input string) ([]*TxsRoute, error) {
+// TraceNFTTxs NFT溯源-追溯交易
+func TraceNFTTxs(req apiModels.ReqNFTTrace) (*RespGraph, error) {
+	//nGQL := fmt.Sprintf("MATCH p=(v:address)-[e:transaction*1..2]->(v2:address{address:\"%s\"}) RETURN e AS p", req.Address)
+	//nGQL := fmt.Sprintf("GET SUBGRAPH WITH PROP 1 STEPS FROM \"0x18e548550a81e318b5b4ac97e26ed1958c8f12e4\" OUT NFT_Txs where NFT_Txs.token_id == \"15\" YIELD VERTICES as address,EDGES as e")
+	nGQL := fmt.Sprintf("GET SUBGRAPH WITH PROP %s STEPS FROM \"%s\" %s NFT_Txs where NFT_Txs.token_address == \"%s\" and NFT_Txs.token_id == \"%s\" YIELD VERTICES as v, EDGES as e", req.Count, req.Address, req.Direction, req.ContractAddress, req.TokenID)
+	result, err := dbExecute(nGQL)
+	if err != nil || len(result) == 0 {
+		return nil, err
+	}
+	res := ParseNebulaResult(result)
+	return &res, nil
+}
+
+// GetNFTHoldRecord 根据地址或者token Id获取NFT的持有记录
+func GetNFTHoldRecord(contractAddress, input string) (*RespGraph, error) {
 	nGQL := fmt.Sprintf("MATCH p=(v)-[e:NFT_Txs]->(v2) where e.token_address==\"%s\"", contractAddress)
 	if strings.HasPrefix(input, "0x") {
-		if len(input) == 66 {
-			nGQL += fmt.Sprintf(" and e.tx_hash==\"%s\"", input)
-			nGQL += " RETURN v as from_address,e as tx,v2 as to_address limit 1"
-			//nGQL += " RETURN p "
-			//nGQL =fmt.Sprintf("LOOKUP ON NFT_Txs WHERE NFT_Txs.tx_hash == \"%s\" YIELD properties(edge).from_address AS from_address, properties(edge).to_address AS to_address,properties(edge).tx_hash as tx_hash", input)
-		} else {
-			//todo
-			nGQL = fmt.Sprintf("MATCH (v)-[e:NFT_Txs]->(v2),(v3)-[e2:NFT_Txs]->(v4) where e.token_address==\"%s\" and e.to_address==\"%s\" and e2.token_address==\"%s\" and e2.from_address==\"%s\" RETURN v,e,e2,v4 limit 1", contractAddress, input, contractAddress, input)
-		}
+		//nGQL = fmt.Sprintf("MATCH (v)-[e:NFT_Txs]->(v2),(v3)-[e2:NFT_Txs]->(v4) where e.token_address==\"%s\" and e.to_address==\"%s\" and e2.token_address==\"%s\" and e2.from_address==\"%s\" RETURN v,e,e2,v4 limit 1", contractAddress, input, contractAddress, input)
+		//nGQL = fmt.Sprintf("GET SUBGRAPH WITH PROP 1 STEPS FROM \"%s\" BOTH NFT_Txs where NFT_Txs.token_address == \"%s\" YIELD VERTICES as address, EDGES as e", input, contractAddress)
+		nGQL = fmt.Sprintf("GET SUBGRAPH WITH PROP 1 STEPS FROM \"%s\" BOTH NFT_Txs where NFT_Txs.token_address == \"%s\" YIELD EDGES as e", input, contractAddress)
+
 	} else {
 		//todo 查询条件为token id
 		//nGQL =fmt.Sprintf("LOOKUP ON NFT_Txs WHERE NFT_Txs.token_id == \"%s\" YIELD properties(edge).from_address AS from_address, properties(edge).to_address AS to_address,properties(edge).tx_hash as tx_hash", input)
@@ -449,67 +452,6 @@ func QueryNFTTxsPath(contractAddress, input string) ([]*TxsRoute, error) {
 	if err != nil || len(result) == 0 {
 		return nil, err
 	}
-
-	paths := make([]*TxSteps, 0, len(result))
-
-	//result是一个数组
-	//vpath是一个值
-	//v nebula.Vertex
-	for _, vpath := range result {
-		for _, v := range vpath {
-			// nebula.Value
-			if path, ok := v.(*nebula.Vertex); ok {
-				pathValue := path.GetTags()
-				//steps := ParseTxInfo(pathValue)
-				fmt.Println("pathValue-------:", pathValue)
-				//tokenRoute := new(TxsRoute)
-				//tokenRoute.Steps = steps
-				//paths = append(paths, tokenRoute)
-			}
-			if path, ok := v.(*nebula.Edge); ok {
-				pathValue := path.GetProps()
-				//steps := ParseTxInfo(pathValue)
-				fmt.Println("pathValue-------:", pathValue)
-				//tokenRoute := new(TxsRoute)
-				//tokenRoute.Steps = steps
-				//paths = append(paths, tokenRoute)
-			}
-			fmt.Println("v-------:", v)
-		}
-	}
-
-	fmt.Println("vpaths-------:", paths)
-	return nil, nil
-}
-
-// 追溯NFT交易 合约地址、token_id from地址、步数
-func GetNFTTxsPath(db *norm.DB, contractAddress, fromAddress, tokenId, steps, direction string) ([]*TxsRoute, error) {
-	//nGQL := fmt.Sprintf("GET SUBGRAPH WITH PROP 1 STEPS FROM \"0x18e548550a81e318b5b4ac97e26ed1958c8f12e4\" OUT NFT_Txs where NFT_Txs.token_id == \"15\" YIELD VERTICES as address,EDGES as e")
-	nGQL := fmt.Sprintf("GET SUBGRAPH WITH PROP %s STEPS FROM \"%s\" %s NFT_Txs where NFT_Txs.token_address == \"%s\" and NFT_Txs.token_id == \"%s\" YIELD VERTICES as address, EDGES as e", steps, fromAddress, direction, contractAddress, tokenId)
-
-	result := make([]map[string]interface{}, 0)
-	res, err := db.Debug().Execute(nGQL)
-	if err != nil {
-		return nil, err
-	} else {
-		err := UnmarshalResultSet(res, &result)
-		if err != nil {
-			return nil, err
-		}
-		//result []map[string]interface{}
-		paths := make([]*TxsRoute, 0, len(result))
-
-		for _, vpath := range result {
-			for _, v := range vpath {
-				if path, ok := v.(*nebula.NList); ok {
-					pathValue := path.GetValues()
-					steps := ParseTxInfo(pathValue)
-					tokenRoute := new(TxsRoute)
-					tokenRoute.Steps = steps
-					paths = append(paths, tokenRoute)
-				}
-			}
-		}
-		return paths, nil
-	}
+	res := ParseNebulaResult(result)
+	return &res, nil
 }

@@ -32,7 +32,7 @@ func (this *AddressController) AddressTokenList() {
 // AddressDetail 地址分析-地址详情
 func (this *AddressController) AddressDetail() {
 	this.IsPost()
-	Req := apiModels.ReqCommon{}
+	Req := apiModels.ReqAddressDetail{}
 	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
 		beego.Error(constant.ErrParam, err)
 		this.ResponseInfo(500, constant.ErrParam, nil)
@@ -41,38 +41,16 @@ func (this *AddressController) AddressDetail() {
 		beego.Error(constant.ErrParam)
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
-	res, err := this.addressService.AddressDetail(Req.Value)
+	res, err := this.addressService.AddressDetail(Req.Value, Req.ContractAddress)
 	if err != nil {
 		beego.Error(constant.ErrSystem, err)
 		this.ResponseInfo(500, constant.ErrSystem, nil)
 	}
 	this.ResponseInfo(200, nil, res)
 }
-
-// AddressTxAnalysis 地址分析-地址交易图
-// todo 1
-func (this *AddressController) AddressTxAnalysis() {
-	this.IsPost()
-	//Req := apiModels.ReqTxAnalysis{}
-	Req := apiModels.ReqAddressTxGraph{}
-	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
-		beego.Error(constant.ErrParam, err)
-		this.ResponseInfo(500, constant.ErrParam, nil)
-	}
-	if len(Req.Address) == 0 {
-		beego.Error(constant.ErrParam)
-		this.ResponseInfo(500, constant.ErrParam, nil)
-	}
-	res, err := this.addressService.AddressTxAnalysis(Req)
-	if err != nil {
-		beego.Error(constant.ErrSystem, err)
-		this.ResponseInfo(500, constant.ErrSystem, nil)
-	}
-	this.ResponseInfo(200, nil, res)
-}
-
 
 // AddressTxDetail 地址分析-交易详情
+// todo 去掉此接口，改查nebula返回图数据后，前端直接获取单笔数据
 func (this *AddressController) AddressTxDetail() {
 	this.IsPost()
 	Req := apiModels.ReqCommon{}
@@ -98,7 +76,28 @@ func (this *AddressController) AddressTxList() {
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
 
-	res, err := this.addressService.AddressTxList(Req.ReqAddressTxDetail.From,Req.ReqAddressTxDetail.To)
+	res, err := this.addressService.AddressTxList(Req.ReqAddressTxDetail.From, Req.ReqAddressTxDetail.To, Req.ContractAddress)
+	if err != nil {
+		beego.Error(constant.ErrSystem, err)
+		this.ResponseInfo(500, constant.ErrSystem, nil)
+	}
+	this.ResponseInfo(200, nil, res)
+}
+
+// AddressTxAnalysis 地址分析-地址交易图
+func (this *AddressController) AddressTxAnalysis() {
+	this.IsPost()
+	//Req := apiModels.ReqTxAnalysis{}
+	Req := apiModels.ReqAddressTxGraph{}
+	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
+		beego.Error(constant.ErrParam, err)
+		this.ResponseInfo(500, constant.ErrParam, nil)
+	}
+	if len(Req.Address) == 0 {
+		beego.Error(constant.ErrParam)
+		this.ResponseInfo(500, constant.ErrParam, nil)
+	}
+	res, err := this.addressService.AddressTxAnalysis(Req)
 	if err != nil {
 		beego.Error(constant.ErrSystem, err)
 		this.ResponseInfo(500, constant.ErrSystem, nil)

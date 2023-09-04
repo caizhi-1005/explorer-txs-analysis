@@ -12,10 +12,10 @@ type RespTxDetail struct {
 }
 
 type ReqAddressTxGraph struct {
-	Count     string `json:"count"`
-	Type      string `json:"type"` //0:全部， -1:前前， 1:向后
-	Address   string `json:"address"`
-	Direction string `json:"direction"` //in out all
+	ContractAddress string `json:"contract_address"`
+	Address         string `json:"address"`
+	Count           string `json:"count"`     //展开数量
+	Direction       string `json:"direction"` //in out all
 }
 
 type RespAddressTxGraph struct {
@@ -52,4 +52,11 @@ type RespTxAddressDetail struct {
 	SendAmountTotal    float64 `json:"send_amount_total"`
 	InTxCount          int     `json:"in_tx_count"`
 	OutTxCount         int     `json:"out_tx_count"`
+}
+
+type RespAddressTxList struct {
+	TxTime string `json:"tx_time"`
+	TxHash string `json:"tx_hash"`
+	Amount string `json:"amount"`
+	Symbol string `json:"symbol,omitempty"`
 }

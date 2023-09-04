@@ -20,11 +20,11 @@ func (this *RouteQuery) EntryTxsByAddress() {
 		this.ResponseInfo(500, "input param address error.", nil)
 		return
 	}
-	result, err := this.nebulaService.GetEntryTxsByAddress(address)
-	if err != nil {
-		beego.Error("GetEntryTxsByAddress error.", err)
-		this.ResponseInfo(500, "GetEntryTxsByAddress error.", err)
-		return
-	}
-	this.ResponseInfo(200, nil, result)
+	//result, err := this.nebulaService.GetEntryTxsByAddress(address)
+	//if err != nil {
+	//	beego.Error("GetEntryTxsByAddress error.", err)
+	//	this.ResponseInfo(500, "GetEntryTxsByAddress error.", err)
+	//	return
+	//}
+	this.ResponseInfo(200, nil, nil)
 }

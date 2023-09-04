@@ -2,9 +2,9 @@ package apiModels
 
 //定义JSON返回格式
 type DataResponse struct {
-	Code  int    `json:"code"`
-	EnMsg string `json:"enMsg"`
-	Data interface{} `json:"data"`
+	Code  int         `json:"code"`
+	EnMsg string      `json:"enMsg"`
+	Data  interface{} `json:"data"`
 }
 
 //定义服务层返回信息
@@ -44,6 +44,6 @@ type ReqCommon struct {
 type ReqPagination struct {
 	Start    string `json:"start"`
 	Length   string `json:"length"`
-	Page     int64 `json:"page"`
-	PageSize int64 `json:"page_size"`
+	Page     int64  `json:"page"`
+	PageSize int64  `json:"page_size"`
 }

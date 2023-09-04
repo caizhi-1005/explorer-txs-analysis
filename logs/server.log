@@ -1,695 +1,194 @@
-2023/08/23 11:08:11.361 [I] [main.go:13]  txs-analysis started! 
-2023/08/23 11:08:11.454 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/23 11:09:28.260 [I] [main.go:13]  txs-analysis started! 
-2023/08/23 11:09:28.352 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/23 11:14:19.999 [C] [panic.go:971]  the request url is  /api/address/txAnalysis
-2023/08/23 11:14:20.000 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/23 11:14:20.000 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/23 11:14:20.000 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/23 11:14:20.007 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:142
-2023/08/23 11:14:20.008 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/addressService.go:54
-2023/08/23 11:14:20.008 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/address.go:45
-2023/08/23 11:14:20.008 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/23 11:14:20.009 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/23 11:14:20.009 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/23 11:14:20.009 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/23 11:14:20.009 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/23 11:14:20.009 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/23 11:14:20.010 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/23 11:26:59.165 [E] [address.go:42]  Input parameter error. Please make sure and try again later. unexpected end of JSON input 
-2023/08/23 11:26:59.174 [C] [panic.go:971]  the request url is  /api/address/txAnalysis
-2023/08/23 11:26:59.174 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/23 11:26:59.174 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/23 11:26:59.174 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/23 11:26:59.174 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:142
-2023/08/23 11:26:59.174 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/addressService.go:54
-2023/08/23 11:26:59.174 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/address.go:45
-2023/08/23 11:26:59.175 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/23 11:26:59.175 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/23 11:26:59.175 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/23 11:26:59.175 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/23 11:26:59.175 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/23 11:26:59.175 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/23 11:26:59.180 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/23 11:27:09.266 [I] [main.go:13]  txs-analysis started! 
-2023/08/23 11:27:09.617 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/23 11:27:15.368 [E] [address.go:42]  Input parameter error. Please make sure and try again later. unexpected end of JSON input 
-2023/08/23 11:27:24.398 [E] [address.go:46]  Input parameter error. Please make sure and try again later. 
-2023/08/23 11:27:24.399 [C] [panic.go:971]  the request url is  /api/address/txAnalysis
-2023/08/23 11:27:24.399 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/23 11:27:24.399 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/23 11:27:24.399 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/23 11:27:24.400 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:142
-2023/08/23 11:27:24.400 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/addressService.go:54
-2023/08/23 11:27:24.400 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/address.go:49
-2023/08/23 11:27:24.401 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/23 11:27:24.401 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/23 11:27:24.401 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/23 11:27:24.401 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/23 11:27:24.405 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/23 11:27:24.405 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/23 11:27:24.407 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/23 11:27:58.134 [E] [address.go:42]  Input parameter error. Please make sure and try again later. json: cannot unmarshal string into Go struct field ReqTxAnalysis.type of type int 
-2023/08/23 11:27:58.134 [E] [address.go:46]  Input parameter error. Please make sure and try again later. 
-2023/08/23 11:27:58.135 [C] [panic.go:971]  the request url is  /api/address/txAnalysis
-2023/08/23 11:27:58.135 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/23 11:27:58.135 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/23 11:27:58.135 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/23 11:27:58.135 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:142
-2023/08/23 11:27:58.135 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/addressService.go:54
-2023/08/23 11:27:58.135 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/address.go:49
-2023/08/23 11:27:58.135 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/23 11:27:58.135 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/23 11:27:58.135 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/23 11:27:58.136 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/23 11:27:58.136 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/23 11:27:58.136 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/23 11:27:58.137 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/23 11:28:12.538 [E] [address.go:42]  Input parameter error. Please make sure and try again later. json: cannot unmarshal string into Go struct field ReqTxAnalysis.type of type int 
-2023/08/23 11:28:12.538 [E] [address.go:46]  Input parameter error. Please make sure and try again later. 
-2023/08/23 11:28:12.538 [C] [panic.go:971]  the request url is  /api/address/txAnalysis
-2023/08/23 11:28:12.539 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/23 11:28:12.539 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/23 11:28:12.539 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/23 11:28:12.540 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:142
-2023/08/23 11:28:12.540 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/addressService.go:54
-2023/08/23 11:28:12.540 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/address.go:49
-2023/08/23 11:28:12.540 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/23 11:28:12.541 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/23 11:28:12.541 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/23 11:28:12.541 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/23 11:28:12.542 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/23 11:28:12.543 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/23 11:28:12.543 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/23 11:29:03.163 [I] [main.go:13]  txs-analysis started! 
-2023/08/23 11:29:03.261 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/23 11:29:21.852 [E] [address.go:46]  Input parameter error. Please make sure and try again later. 
-2023/08/23 11:29:21.853 [C] [panic.go:971]  the request url is  /api/address/txAnalysis
-2023/08/23 11:29:21.853 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/23 11:29:21.853 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/23 11:29:21.853 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/23 11:29:21.853 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:142
-2023/08/23 11:29:21.853 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/addressService.go:54
-2023/08/23 11:29:21.854 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/address.go:49
-2023/08/23 11:29:21.854 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/23 11:29:21.854 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/23 11:29:21.854 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/23 11:29:21.854 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/23 11:29:21.854 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/23 11:29:21.854 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/23 11:29:21.856 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/23 11:29:32.783 [C] [panic.go:971]  the request url is  /api/address/txAnalysis
-2023/08/23 11:29:32.783 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/23 11:29:32.783 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/23 11:29:32.783 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/23 11:29:32.783 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:142
-2023/08/23 11:29:32.783 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/addressService.go:54
-2023/08/23 11:29:32.784 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/address.go:49
-2023/08/23 11:29:32.784 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/23 11:29:32.784 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/23 11:29:32.784 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/23 11:29:32.784 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/23 11:29:32.784 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/23 11:29:32.784 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/23 11:29:32.785 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/23 13:42:08.000 [I] [main.go:13]  txs-analysis started! 
-2023/08/23 13:42:08.091 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/23 13:42:40.058 [C] [panic.go:971]  the request url is  /api/address/txAnalysis
-2023/08/23 13:42:40.058 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/23 13:42:40.058 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/23 13:42:40.058 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/23 13:42:40.058 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:144
-2023/08/23 13:42:40.058 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/addressService.go:54
-2023/08/23 13:42:40.061 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/address.go:49
-2023/08/23 13:42:40.061 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/23 13:42:40.061 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/23 13:42:40.061 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/23 13:42:40.062 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/23 13:42:40.062 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/23 13:42:40.063 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/23 13:42:40.063 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/23 13:43:33.457 [I] [main.go:13]  txs-analysis started! 
-2023/08/23 13:43:33.549 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/23 14:02:31.625 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|18m54.371691s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
-2023/08/24 14:17:57.274 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 14:17:57.449 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 14:20:42.474 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 14:20:42.596 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 14:24:00.614 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   1.6473579s|   match|[46m POST    [0m /api/address/txList   r:/apiaddress/txList
-2023/08/24 14:40:12.945 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 14:40:13.034 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 14:43:17.104 [E] [txService.go:39]  dbModels.GetTxInfo error. <QuerySeter> no row found 
-2023/08/24 14:43:22.508 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  11.1422343s|   match|[46m POST    [0m /api/txs/detail   r:/apitxs/detail
-2023/08/24 14:44:10.421 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    1.801973s|   match|[46m POST    [0m /api/txs/detail   r:/apitxs/detail
-2023/08/24 14:45:13.169 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   4.1943634s|   match|[46m POST    [0m /api/txs/detail   r:/apitxs/detail
-2023/08/24 15:13:04.689 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    13.9366ms|   match|[46m POST    [0m /api/txs/addressDetail   r:/apitxs/addressDetail
-2023/08/24 15:22:37.579 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:22:37.673 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:22:40.231 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.7129ms|   match|[46m POST    [0m /api/txs/addressDetail   r:/apitxs/addressDetail
-2023/08/24 15:22:53.719 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|      986.8µs|   match|[46m POST    [0m /api/txs/addressDetail   r:/apitxs/addressDetail
-2023/08/24 15:23:18.415 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.0127ms|   match|[46m POST    [0m /api/txs/addressDetail   r:/apitxs/addressDetail
-2023/08/24 15:24:01.230 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:24:01.319 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:24:04.025 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.0815ms|   match|[46m POST    [0m /api/txs/addressDetail   r:/apitxs/addressDetail
-2023/08/24 15:25:00.973 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:25:01.071 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:25:06.090 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    11.7706ms|   match|[46m POST    [0m /api/txs/addressDetail   r:/apitxs/addressDetail
-2023/08/24 15:34:18.098 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:34:18.190 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:36:09.858 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     15.539ms|   match|[46m POST    [0m /api/txs/addressDetail   r:/apitxs/addressDetail
-2023/08/24 15:39:25.844 [E] [nft.go:22]  NFTController NFTList error. Error 1054: Unknown column 'address' in 'field list' 
-2023/08/24 15:39:25.844 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     3.0699ms|   match|[46m POST    [0m /api/nft/list   r:/apinft/list
-2023/08/24 15:43:05.352 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:43:05.442 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:43:09.205 [C] [panic.go:971]  the request url is  /api/nft/list
-2023/08/24 15:43:09.205 [C] [panic.go:971]  Handler crashed with error reflect: reflect.Value.SetString using value obtained using unexported field
-2023/08/24 15:43:09.205 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/24 15:43:09.205 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:257
-2023/08/24 15:43:09.205 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:247
-2023/08/24 15:43:09.205 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:1746
-2023/08/24 15:43:09.205 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:105
-2023/08/24 15:43:09.205 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:554
-2023/08/24 15:43:09.205 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:560
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbContract.go:64
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:16
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:20
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/24 15:43:09.206 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/24 15:43:09.207 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/24 15:44:03.721 [C] [panic.go:971]  the request url is  /api/nft/list
-2023/08/24 15:44:03.721 [C] [panic.go:971]  Handler crashed with error reflect: reflect.Value.SetString using value obtained using unexported field
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:257
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:247
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:1746
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:105
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:554
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:560
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbContract.go:64
-2023/08/24 15:44:03.721 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:16
-2023/08/24 15:44:03.722 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:20
-2023/08/24 15:44:03.722 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/24 15:44:03.722 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/24 15:44:03.722 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/24 15:44:03.722 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/24 15:44:03.722 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/24 15:44:03.722 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/24 15:44:03.722 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/24 15:44:31.634 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:44:31.754 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:44:37.704 [C] [panic.go:971]  the request url is  /api/nft/list
-2023/08/24 15:44:37.704 [C] [panic.go:971]  Handler crashed with error <RawSeter.QueryRows> all args must be use ptr slice
-2023/08/24 15:44:37.704 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/24 15:44:37.704 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:433
-2023/08/24 15:44:37.704 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbContract.go:64
-2023/08/24 15:44:37.704 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:16
-2023/08/24 15:44:37.704 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:20
-2023/08/24 15:44:37.704 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/24 15:44:37.704 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/24 15:44:37.705 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/24 15:44:37.705 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/24 15:44:37.705 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/24 15:44:37.705 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/24 15:44:37.705 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/24 15:45:31.503 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:45:31.598 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:45:33.505 [C] [panic.go:971]  the request url is  /api/nft/list
-2023/08/24 15:45:33.505 [C] [panic.go:971]  Handler crashed with error reflect: reflect.Value.SetString using value obtained using unexported field
-2023/08/24 15:45:33.505 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/24 15:45:33.505 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:257
-2023/08/24 15:45:33.505 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:247
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:1746
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:105
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:554
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:560
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbContract.go:64
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:16
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:20
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/24 15:45:33.506 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/24 15:45:33.507 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/24 15:45:33.507 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/24 15:46:22.828 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:46:22.918 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:46:36.788 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   7.5931389s|   match|[46m POST    [0m /api/nft/list   r:/apinft/list
-2023/08/24 15:51:54.651 [E] [nft.go:49]  NFTController TokenIdList error. Error 1054: Unknown column 'token_id' in 'field list' 
-2023/08/24 15:51:54.652 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     4.9206ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 15:53:21.520 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:53:21.610 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:53:38.016 [E] [nft.go:49]  NFTController TokenIdList error. Error 1054: Unknown column '0x1f86edde4d6c9861cadb3c94aa3644a78612b0cfaddress' in 'where clause' 
-2023/08/24 15:53:38.016 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     3.1916ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 15:54:19.466 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:54:19.555 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:55:02.022 [E] [nft.go:49]  NFTController TokenIdList error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address = 0x1f86edde4d6c9861cadb3c94aa3644a78612b0cf' at line 1 
-2023/08/24 15:55:02.022 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.8024ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 15:55:31.393 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:55:31.477 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:55:45.967 [E] [nft.go:49]  NFTController TokenIdList error. Error 1054: Unknown column 'address' in 'where clause' 
-2023/08/24 15:55:45.967 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    12.7599ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 15:56:17.836 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 15:56:17.925 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 15:56:23.621 [E] [nft.go:49]  NFTController TokenIdList error. Error 1054: Unknown column 'address' in 'where clause' 
-2023/08/24 15:56:23.621 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    10.8716ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 16:09:05.903 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 16:09:06.022 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 16:09:09.473 [E] [nft.go:34]  Input parameter error. Please make sure and try again later. invalid character '"' after object key:value pair 
-2023/08/24 16:09:09.473 [E] [nft.go:39]  NFTController TokenIdList error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 
-2023/08/24 16:09:09.474 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.6341ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 16:09:55.593 [E] [nft.go:34]  Input parameter error. Please make sure and try again later. invalid character '"' after object key:value pair 
-2023/08/24 16:10:55.272 [E] [nft.go:39]  NFTController TokenIdList error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 
-2023/08/24 16:10:55.272 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   59.678789s|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 16:11:08.159 [E] [nft.go:34]  Input parameter error. Please make sure and try again later. invalid character '"' after object key:value pair 
-2023/08/24 16:11:08.859 [E] [nft.go:39]  NFTController TokenIdList error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 
-2023/08/24 16:11:08.859 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  11.5684213s|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 16:13:05.626 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 16:13:05.719 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 16:13:17.254 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   1.8940161s|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 16:13:42.481 [C] [panic.go:971]  the request url is  /api/nft/tokenIdList
-2023/08/24 16:13:42.481 [C] [panic.go:971]  Handler crashed with error reflect.Set: value of type []string is not assignable to type string
-2023/08/24 16:13:42.481 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:2451
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:1564
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:2051
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:264
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/orm/orm_raw.go:406
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/dbModels/tbTransaction.go:160
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:25
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:38
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/24 16:13:42.482 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/24 16:13:42.483 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/24 16:13:42.483 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/24 16:13:42.483 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/24 16:13:42.483 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/24 16:13:42.484 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/24 16:17:09.366 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 16:17:09.454 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 16:17:13.524 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     5.1938ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/24 16:26:19.245 [E] [nftService.go:48]  dbModels.HoldTokenIdHistory error. Error 1054: Unknown column 'account_address' in 'where clause' 
-2023/08/24 16:26:19.246 [E] [nftService.go:53]  dbModels.LongestHold error. Error 1054: Unknown column 'account_address' in 'where clause' 
-2023/08/24 16:26:19.246 [C] [panic.go:971]  the request url is  /api/nft/addressDetail
-2023/08/24 16:26:19.246 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
-2023/08/24 16:26:19.246 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/24 16:26:19.246 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
-2023/08/24 16:26:19.246 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
-2023/08/24 16:26:19.247 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:59
-2023/08/24 16:26:19.247 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:57
-2023/08/24 16:26:19.247 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/24 16:26:19.247 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/24 16:26:19.247 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/24 16:26:19.247 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/24 16:26:19.247 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/24 16:26:19.247 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/24 16:26:19.248 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/24 16:41:32.209 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 16:41:32.316 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 17:21:06.008 [E] [nftService.go:47]  dbModels.HoldTokenIdHistory error. Error 1054: Unknown column 'account_address' in 'where clause' 
-2023/08/24 17:21:06.008 [E] [nftService.go:52]  dbModels.LongestHold error. Error 1054: Unknown column 'account_address' in 'where clause' 
-2023/08/24 17:21:06.010 [C] [panic.go:971]  the request url is  /api/nft/addressDetail
-2023/08/24 17:21:06.010 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
-2023/08/24 17:21:06.010 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/24 17:21:06.010 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
-2023/08/24 17:21:06.010 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
-2023/08/24 17:21:06.010 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:56
-2023/08/24 17:21:06.010 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:57
-2023/08/24 17:21:06.011 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/24 17:21:06.011 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/24 17:21:06.011 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/24 17:21:06.011 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/24 17:21:06.011 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/24 17:21:06.011 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/24 17:21:06.012 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/24 18:55:43.523 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 18:55:43.615 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 18:57:51.708 [E] [nftService.go:59]  dbModels.HoldTokenIdHistory error. Error 1054: Unknown column 'account_address' in 'where clause' 
-2023/08/24 18:58:42.909 [I] [main.go:13]  txs-analysis started! 
-2023/08/24 18:58:42.999 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/24 19:00:19.510 [E] [nftService.go:59]  dbModels.HoldTokenIdHistory error. Error 1054: Unknown column 'account_address' in 'where clause' 
-2023/08/25 18:32:06.825 [I] [main.go:13]  txs-analysis started! 
-2023/08/25 18:32:06.932 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/25 18:32:12.424 [E] [nft.go:99]  NFT NFTTxDetail error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and token_address= 0xd801e8cf801ecd9b29c3ca0aec3ddcbe041af381' at line 1 
-2023/08/25 18:32:12.424 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     5.1787ms|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/25 18:33:32.890 [E] [nft.go:99]  NFT NFTTxDetail error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and token_address= 0xd801e8cf801ecd9b29c3ca0aec3ddcbe041af381' at line 1 
-2023/08/25 18:33:32.890 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  44.1674973s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/25 18:34:20.754 [I] [main.go:13]  txs-analysis started! 
-2023/08/25 18:34:20.852 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/25 18:34:25.894 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   1.7554932s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 10:32:54.253 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 10:32:54.364 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 10:35:48.714 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 10:35:48.803 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 11:13:12.201 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 11:13:12.292 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 11:13:52.366 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  37.3497152s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 11:15:26.603 [C] [panic.go:971]  the request url is  /api/nft/txDetail
-2023/08/28 11:15:26.603 [C] [panic.go:971]  Handler crashed with error runtime error: slice bounds out of range [:11] with length 0
-2023/08/28 11:15:26.605 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 11:15:26.605 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:98
-2023/08/28 11:15:26.605 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:135
-2023/08/28 11:15:26.605 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:97
-2023/08/28 11:15:26.605 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 11:15:26.605 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 11:15:26.606 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 11:15:26.606 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 11:15:26.606 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 11:15:26.606 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 11:15:26.607 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 11:16:17.243 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 11:16:17.361 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 11:18:25.571 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m| 2m4.8783673s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 11:20:42.750 [C] [panic.go:971]  the request url is  /api/nft/txDetail
-2023/08/28 11:20:42.750 [C] [panic.go:971]  Handler crashed with error runtime error: slice bounds out of range [:11] with length 0
-2023/08/28 11:20:42.751 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 11:20:42.751 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:98
-2023/08/28 11:20:42.751 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:135
-2023/08/28 11:20:42.751 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:97
-2023/08/28 11:20:42.751 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 11:20:42.752 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 11:20:42.752 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 11:20:42.752 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 11:20:42.752 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 11:20:42.752 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 11:20:42.753 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 11:21:40.521 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 11:21:40.618 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 11:22:00.571 [C] [panic.go:971]  the request url is  /api/nft/txDetail
-2023/08/28 11:22:00.571 [C] [panic.go:971]  Handler crashed with error runtime error: slice bounds out of range [:11] with length 10
-2023/08/28 11:22:00.571 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 11:22:00.571 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:98
-2023/08/28 11:22:00.571 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:136
-2023/08/28 11:22:00.571 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:97
-2023/08/28 11:22:00.572 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 11:22:00.572 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 11:22:00.572 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 11:22:00.573 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 11:22:00.573 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 11:22:00.573 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 11:22:00.574 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 11:22:26.613 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 11:22:26.698 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 11:22:40.205 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  11.4733055s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 11:28:14.366 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  30.7363984s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 11:29:01.744 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  45.1425101s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 11:30:34.816 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   4.3090995s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 11:30:41.120 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    11.0925ms|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 11:30:58.310 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 11:30:58.398 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 11:31:10.933 [C] [panic.go:971]  the request url is  /api/nft/txDetail
-2023/08/28 11:31:10.933 [C] [panic.go:971]  Handler crashed with error runtime error: slice bounds out of range [:10] with length 0
-2023/08/28 11:31:10.933 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 11:31:10.933 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:98
-2023/08/28 11:31:10.933 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:138
-2023/08/28 11:31:10.934 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:97
-2023/08/28 11:31:10.934 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 11:31:10.934 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 11:31:10.934 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 11:31:10.935 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 11:31:10.935 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 11:31:10.935 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 11:31:10.936 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 11:48:10.991 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|16m58.1945179s|   match|[46m POST    [0m /api/nft/txDetail   r:/apinft/txDetail
-2023/08/28 14:54:05.377 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 14:54:05.476 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 14:55:14.779 [E] [nftService.go:167]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 14:55:14.789 [E] [nftService.go:173]  dbModels.ContractInfo error. <QuerySeter> no row found 
-2023/08/28 14:55:14.790 [C] [panic.go:971]  the request url is  /api/nft/detail
-2023/08/28 14:55:14.790 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
-2023/08/28 14:55:14.791 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 14:55:14.791 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
-2023/08/28 14:55:14.792 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
-2023/08/28 14:55:14.792 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:176
-2023/08/28 14:55:14.792 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:115
-2023/08/28 14:55:14.792 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 14:55:14.792 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 14:55:14.792 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 14:55:14.792 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 14:55:14.792 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 14:55:14.793 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 14:55:14.794 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 14:55:39.016 [E] [nftService.go:167]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 14:58:41.855 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 14:58:41.965 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 15:00:32.339 [E] [nftService.go:167]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:01:12.790 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 15:01:12.878 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 15:01:30.853 [E] [nftService.go:167]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:06:15.632 [E] [nftService.go:173]  dbModels.ContractInfo error. <QuerySeter> no row found 
-2023/08/28 15:06:48.242 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 15:06:48.333 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 15:06:52.327 [E] [nftService.go:167]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:06:52.331 [C] [panic.go:971]  the request url is  /api/nft/detail
-2023/08/28 15:06:52.332 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
-2023/08/28 15:06:52.332 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 15:06:52.332 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
-2023/08/28 15:06:52.332 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
-2023/08/28 15:06:52.332 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:177
-2023/08/28 15:06:52.332 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:115
-2023/08/28 15:06:52.332 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 15:06:52.333 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 15:06:52.333 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 15:06:52.333 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 15:06:52.333 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 15:06:52.333 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 15:06:52.336 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 15:07:26.232 [E] [nftService.go:167]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:07:49.385 [C] [panic.go:971]  the request url is  /api/nft/detail
-2023/08/28 15:07:49.385 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
-2023/08/28 15:07:49.385 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 15:07:49.386 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
-2023/08/28 15:07:49.386 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
-2023/08/28 15:07:49.386 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:177
-2023/08/28 15:07:49.386 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:115
-2023/08/28 15:07:49.386 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 15:07:49.386 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 15:07:49.386 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 15:07:49.387 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 15:07:49.387 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 15:07:49.387 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 15:07:49.388 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 15:08:21.772 [E] [nftService.go:167]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:10:13.480 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 15:10:13.565 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 15:10:19.284 [E] [nftService.go:168]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:10:20.841 [C] [panic.go:971]  the request url is  /api/nft/detail
-2023/08/28 15:10:20.841 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
-2023/08/28 15:10:20.841 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 15:10:20.841 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
-2023/08/28 15:10:20.842 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
-2023/08/28 15:10:20.842 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:183
-2023/08/28 15:10:20.842 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:115
-2023/08/28 15:10:20.843 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 15:10:20.843 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 15:10:20.843 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 15:10:20.843 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 15:10:20.843 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 15:10:20.843 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 15:10:20.844 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 15:10:34.304 [E] [nftService.go:168]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:11:08.269 [C] [panic.go:971]  the request url is  /api/nft/detail
-2023/08/28 15:11:08.269 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
-2023/08/28 15:11:08.270 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/28 15:11:08.270 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
-2023/08/28 15:11:08.270 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
-2023/08/28 15:11:08.270 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:183
-2023/08/28 15:11:08.271 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:115
-2023/08/28 15:11:08.271 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/28 15:11:08.272 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/28 15:11:08.272 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/28 15:11:08.273 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/28 15:11:08.273 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/28 15:11:08.273 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/28 15:11:08.274 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/28 15:11:10.696 [E] [nftService.go:168]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:12:34.952 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 15:12:35.042 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 15:12:54.347 [E] [nftService.go:169]  dbModels.NFTDetail error. <QuerySeter> no row found 
-2023/08/28 15:14:26.851 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|1m32.5171627s|   match|[46m POST    [0m /api/nft/detail   r:/apinft/detail
-2023/08/28 15:33:19.881 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    26.2961ms|   match|[46m POST    [0m /api/address/txList   r:/apiaddress/txList
-2023/08/28 15:44:29.953 [E] [nft.go:71]  Input parameter error. Please make sure and try again later. invalid character '"' after object key:value pair 
-2023/08/28 15:44:29.954 [E] [nft.go:81]  NFT NFTTransferDetailByAddress error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 1 
-2023/08/28 15:44:29.954 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.1253ms|   match|[46m POST    [0m /api/nft/transferDetailByAddress   r:/apinft/transferDetailByAddress
-2023/08/28 15:44:44.312 [E] [nft.go:71]  Input parameter error. Please make sure and try again later. invalid character '"' after object key:value pair 
-2023/08/28 15:45:30.192 [E] [nft.go:81]  NFT NFTTransferDetailByAddress error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 1 
-2023/08/28 15:45:30.193 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  45.8804111s|   match|[46m POST    [0m /api/nft/transferDetailByAddress   r:/apinft/transferDetailByAddress
-2023/08/28 15:48:05.692 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|2m33.1263975s|   match|[46m POST    [0m /api/nft/transferDetailByAddress   r:/apinft/transferDetailByAddress
-2023/08/28 15:52:37.173 [E] [nft.go:135]  NFT NFTTransferDetailByTokenId error. Error 1052: Column 'from' in field list is ambiguous 
-2023/08/28 15:52:37.173 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.5525ms|   match|[46m POST    [0m /api/nft/transferDetailByTokenId   r:/apinft/transferDetailByTokenId
-2023/08/28 15:55:40.207 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 15:55:40.296 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 15:56:30.241 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     3.7469ms|   match|[46m POST    [0m /api/nft/transferDetailByTokenId   r:/apinft/transferDetailByTokenId
-2023/08/28 15:58:27.915 [I] [main.go:13]  txs-analysis started! 
-2023/08/28 15:58:28.003 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/28 15:58:52.107 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    10.1391ms|   match|[46m POST    [0m /api/nft/transferDetailByTokenId   r:/apinft/transferDetailByTokenId
-2023/08/29 10:36:56.391 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 10:36:56.521 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 10:38:02.037 [C] [panic.go:971]  the request url is  /api/nft/startAnalysis
-2023/08/29 10:38:02.041 [C] [panic.go:971]  Handler crashed with error connect nebula fail: failed to open connection, error: failed to open transport, error: dial tcp 35.77.216.23:9669: i/o timeout 
-2023/08/29 10:38:02.044 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/29 10:38:02.044 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/norm/dialectors/nebula.go:58
-2023/08/29 10:38:02.044 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:33
-2023/08/29 10:38:02.044 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:48
-2023/08/29 10:38:02.044 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/sync/once.go:68
-2023/08/29 10:38:02.044 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/sync/once.go:59
-2023/08/29 10:38:02.044 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:47
-2023/08/29 10:38:02.045 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nebulaService.go:32
-2023/08/29 10:38:02.045 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:153
-2023/08/29 10:38:02.045 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/29 10:38:02.046 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/29 10:38:02.046 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/29 10:38:02.046 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/29 10:38:02.046 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/29 10:38:02.046 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/29 10:38:02.047 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/29 10:41:04.225 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 10:41:04.326 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 10:45:06.024 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|3m18.7564609s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 11:05:08.362 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|8m50.6537331s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 11:20:23.873 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 11:20:24.001 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 11:24:10.221 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 11:24:10.329 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 11:26:04.351 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|1m32.9732933s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 11:27:45.583 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|1m38.5259502s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 11:28:32.054 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  44.2638556s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 11:33:03.048 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 11:33:03.165 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 11:34:19.917 [E] [nft.go:175]  NFT NFTTransferDetailByTokenId error. code: -1009, msg: SemanticError: `address': Unknown tag 
-2023/08/29 11:34:19.917 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  35.4586719s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
-2023/08/29 11:46:09.229 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 11:46:09.317 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 13:28:54.711 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 13:28:54.804 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 13:49:12.758 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|3m30.3338139s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 14:06:11.643 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|16m47.2701641s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 14:28:20.665 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 14:28:20.774 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 14:28:27.078 [C] [panic.go:971]  the request url is  /api/nft/addressDetail
-2023/08/29 14:28:27.078 [C] [panic.go:971]  Handler crashed with error can't find templatefile in the path:views/nftcontroller/nftaddressdetail.tpl
-2023/08/29 14:28:27.078 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/29 14:28:27.079 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/template.go:75
-2023/08/29 14:28:27.079 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:306
-2023/08/29 14:28:27.079 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:257
-2023/08/29 14:28:27.086 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:237
-2023/08/29 14:28:27.086 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:909
-2023/08/29 14:28:27.086 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/29 14:28:27.086 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/29 14:28:27.086 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/29 14:28:27.087 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/29 14:28:46.611 [C] [panic.go:971]  the request url is  /api/nft/addressDetail
-2023/08/29 14:28:46.612 [C] [panic.go:971]  Handler crashed with error can't find templatefile in the path:views/nftcontroller/nftaddressdetail.tpl
-2023/08/29 14:28:46.613 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/29 14:28:46.613 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/template.go:75
-2023/08/29 14:28:46.613 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:306
-2023/08/29 14:28:46.613 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:257
-2023/08/29 14:28:46.613 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:237
-2023/08/29 14:28:46.613 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:909
-2023/08/29 14:28:46.613 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/29 14:28:46.614 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/29 14:28:46.614 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/29 14:28:46.614 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/29 14:28:59.154 [C] [panic.go:971]  the request url is  /api/nft/addressDetail
-2023/08/29 14:28:59.154 [C] [panic.go:971]  Handler crashed with error can't find templatefile in the path:views/nftcontroller/nftaddressdetail.tpl
-2023/08/29 14:28:59.154 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/29 14:28:59.155 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/template.go:75
-2023/08/29 14:28:59.155 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:306
-2023/08/29 14:28:59.155 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:257
-2023/08/29 14:28:59.155 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/controller.go:237
-2023/08/29 14:28:59.155 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:909
-2023/08/29 14:28:59.155 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/29 14:28:59.155 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/29 14:28:59.155 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/29 14:28:59.156 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/29 14:29:26.487 [E] [nft.go:169]  Input parameter error. Please make sure and try again later. json: cannot unmarshal number into Go struct field ReqNFTTrace.count of type string 
-2023/08/29 14:30:21.288 [E] [nft.go:176]  NFT NFTTransferDetailByTokenId error. code: -1004, msg: SyntaxError: syntax error near `STEPS' 
-2023/08/29 14:30:21.289 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  54.8028785s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
-2023/08/29 14:30:23.357 [E] [nft.go:169]  Input parameter error. Please make sure and try again later. json: cannot unmarshal number into Go struct field ReqNFTTrace.count of type string 
-2023/08/29 14:30:39.288 [E] [nft.go:176]  NFT NFTTransferDetailByTokenId error. code: -1004, msg: SyntaxError: syntax error near `STEPS' 
-2023/08/29 14:30:39.288 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  15.9313667s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
-2023/08/29 14:32:12.361 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m| 1m7.0653145s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
-2023/08/29 14:32:27.092 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   9.6384849s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
-2023/08/29 14:32:33.074 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    37.7526ms|   match|[46m POST    [0m /api/address/txList   r:/apiaddress/txList
-2023/08/29 14:33:15.838 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 14:33:15.929 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 14:49:07.669 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|15m48.3865906s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
-2023/08/29 16:18:09.684 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 16:18:09.774 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 16:21:55.805 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|3m39.6641259s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 16:22:19.179 [E] [nft.go:155]  NFT NFTStartAnalysis error. authentication fails, read tcp 192.168.1.117:60331->13.41.239.97:9669: i/o timeout 
-2023/08/29 16:22:19.179 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  20.1195441s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
-2023/08/29 19:38:20.240 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 19:38:20.339 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 19:50:03.245 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 19:50:03.337 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 19:50:16.728 [E] [address.go:47]  Input parameter error. Please make sure and try again later. 
-2023/08/29 19:53:18.845 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 19:53:18.941 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 19:53:58.580 [E] [addressService.go:54]  dbModels.TxGraphData error. code: -1009, msg: SemanticError: `address': Unknown tag 
-2023/08/29 19:53:58.581 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   35.861241s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
-2023/08/29 19:55:08.123 [E] [addressService.go:54]  dbModels.TxGraphData error. code: -1009, msg: SemanticError: `address': Unknown tag 
-2023/08/29 19:55:08.123 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m| 1m4.7053596s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
-2023/08/29 19:56:15.952 [E] [addressService.go:54]  dbModels.TxGraphData error. code: -1009, msg: SemanticError: `address': Unknown tag 
-2023/08/29 19:56:15.952 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m| 1m5.4018382s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
-2023/08/29 19:59:44.917 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 19:59:45.007 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/29 20:22:08.138 [I] [main.go:13]  txs-analysis started! 
-2023/08/29 20:22:08.230 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 09:41:16.470 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 09:41:16.621 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 10:20:32.866 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 10:20:32.959 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 11:03:54.420 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 11:03:54.512 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 11:07:38.741 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 11:07:38.833 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 13:56:48.437 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 13:56:48.536 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 13:56:55.989 [C] [panic.go:971]  the request url is  /api/nft/startAnalysis
-2023/08/30 13:56:55.990 [C] [panic.go:971]  Handler crashed with error connect nebula fail: failed to open connection, error: failed to open transport, error: dial tcp 13.41.239.97:9669: i/o timeout 
-2023/08/30 13:56:55.990 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
-2023/08/30 13:56:55.990 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/norm/dialectors/nebula.go:58
-2023/08/30 13:56:55.991 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:33
-2023/08/30 13:56:55.991 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:48
-2023/08/30 13:56:55.991 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/sync/once.go:68
-2023/08/30 13:56:55.991 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/sync/once.go:59
-2023/08/30 13:56:55.991 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:47
-2023/08/30 13:56:55.991 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/transaction.go:345
-2023/08/30 13:56:55.991 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/transaction.go:448
-2023/08/30 13:56:55.991 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nebulaService.go:35
-2023/08/30 13:56:55.992 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:153
-2023/08/30 13:56:55.994 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
-2023/08/30 13:56:55.994 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
-2023/08/30 13:56:55.994 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
-2023/08/30 13:56:55.995 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
-2023/08/30 13:56:55.995 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
-2023/08/30 13:56:55.995 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
-2023/08/30 13:56:55.995 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
-2023/08/30 14:41:09.164 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 14:41:09.257 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 15:12:05.141 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 15:12:05.239 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 15:12:29.908 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    54.8866ms|   match|[46m POST    [0m /api/address/tokenList   r:/apiaddress/tokenList
-2023/08/30 16:54:48.305 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 16:54:48.396 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 16:54:58.148 [E] [addressService.go:19]  dbModels.QueryContractList error. Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and symbol != '' AND ( LOWER(name) LIKE LOWER('%%') OR LOWER(symbol) LIKE LOWER(' at line 1 
-2023/08/30 16:54:58.148 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     2.7639ms|   match|[46m POST    [0m /api/address/tokenList   r:/apiaddress/tokenList
-2023/08/30 16:56:19.111 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     11.007ms|   match|[46m POST    [0m /api/address/tokenList   r:/apiaddress/tokenList
-2023/08/30 17:04:10.331 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     2.8921ms|   match|[46m POST    [0m /api/address/tokenList   r:/apiaddress/tokenList
-2023/08/30 17:22:29.784 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 17:22:29.885 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 17:22:38.590 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     8.3952ms|   match|[46m POST    [0m /api/address/tokenList   r:/apiaddress/tokenList
-2023/08/30 17:25:54.295 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 17:25:54.388 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 17:26:27.465 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    19.2602ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/30 17:29:40.356 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|      4.145ms|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
-2023/08/30 17:30:25.834 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 17:30:25.938 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 17:31:55.287 [I] [main.go:13]  txs-analysis started! 
-2023/08/30 17:31:55.441 [I] [asm_amd64.s:1371]  http server Running on http://:20800
-2023/08/30 17:32:05.015 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   2.2654487s|   match|[46m POST    [0m /api/nft/tokenIdList   r:/apinft/tokenIdList
+2023/09/03 08:47:24.235 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 08:47:24.357 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 08:48:20.875 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   108.9282ms|   match|[46m POST    [0m /api/address/detail   r:/apiaddress/detail
+2023/09/03 08:49:31.106 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  44.9282974s|   match|[46m POST    [0m /api/nft/addressDetail   r:/apinft/addressDetail
+2023/09/03 11:06:50.389 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 11:06:50.514 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 11:16:35.597 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 11:16:35.711 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 11:35:12.049 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|10m33.5549033s|   match|[46m POST    [0m /api/nft/addressDetail   r:/apinft/addressDetail
+2023/09/03 11:35:33.848 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|16m7.6800772s|   match|[46m POST    [0m /api/nft/addressDetail   r:/apinft/addressDetail
+2023/09/03 12:06:51.363 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 12:06:51.450 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 12:08:11.086 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 12:08:11.169 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 12:08:17.639 [E] [nft.go:153]  Input parameter error. Please make sure and try again later. 
+2023/09/03 12:08:18.895 [E] [nft.go:159]  NFT NFTStartAnalysis error. code: -1004, msg: SyntaxError: syntax error near `"' 
+2023/09/03 12:08:18.895 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   1.2566121s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 12:08:57.592 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   2.0219422s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 12:10:08.312 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  59.0577559s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 12:11:08.122 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  57.9070253s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 12:35:30.513 [E] [nft.go:159]  NFT NFTStartAnalysis error. code: -1004, msg: SyntaxError: syntax error near `e.token_' 
+2023/09/03 12:35:30.514 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|23m53.1693329s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 13:26:06.251 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 13:26:06.344 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 13:31:38.097 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|3m22.7149596s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 13:32:57.408 [E] [nft.go:159]  NFT NFTStartAnalysis error. code: -1004, msg: SyntaxError: syntax error near `edge' 
+2023/09/03 13:32:57.411 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|1m15.6968248s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 13:34:38.652 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 13:34:38.740 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 13:43:39.716 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 13:43:39.807 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 14:08:04.106 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 14:08:04.197 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 14:12:12.208 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 14:12:12.298 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 14:17:31.506 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 14:17:31.594 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 14:24:27.891 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 14:24:27.980 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 14:25:42.983 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|1m10.2573526s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 14:28:40.229 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 14:28:40.317 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 15:32:07.375 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 15:32:07.466 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 15:32:57.950 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 15:32:58.048 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 15:34:19.891 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|1m12.7994985s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 15:36:18.379 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 15:36:18.459 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 15:37:00.935 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 15:37:01.032 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 15:38:56.591 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 15:38:56.671 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 15:41:48.346 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 15:41:48.435 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:06:53.137 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:06:53.224 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:11:20.261 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:11:20.350 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:18:12.407 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:18:12.493 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:31:29.291 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:31:29.379 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:31:35.617 [C] [panic.go:971]  the request url is  /api/nft/startAnalysis
+2023/09/03 16:31:35.618 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2023/09/03 16:31:35.618 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
+2023/09/03 16:31:35.618 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
+2023/09/03 16:31:35.618 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
+2023/09/03 16:31:35.620 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:143
+2023/09/03 16:31:35.621 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:155
+2023/09/03 16:31:35.621 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:214
+2023/09/03 16:31:35.621 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/transaction.go:474
+2023/09/03 16:31:35.621 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:231
+2023/09/03 16:31:35.621 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:157
+2023/09/03 16:31:35.621 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
+2023/09/03 16:31:35.622 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
+2023/09/03 16:31:35.622 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
+2023/09/03 16:31:35.622 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
+2023/09/03 16:31:35.622 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
+2023/09/03 16:31:35.623 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
+2023/09/03 16:31:35.623 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
+2023/09/03 16:35:38.222 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:35:38.352 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:35:43.299 [C] [panic.go:971]  the request url is  /api/nft/startAnalysis
+2023/09/03 16:35:43.299 [C] [panic.go:971]  Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2023/09/03 16:35:43.299 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:971
+2023/09/03 16:35:43.300 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/panic.go:212
+2023/09/03 16:35:43.300 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/signal_windows.go:239
+2023/09/03 16:35:43.300 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/base.go:217
+2023/09/03 16:35:43.300 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/models/nebulaModels/transaction.go:474
+2023/09/03 16:35:43.300 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/service/nftService.go:231
+2023/09/03 16:35:43.300 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/cz/txs-analysis/controllers/nft.go:157
+2023/09/03 16:35:43.301 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:476
+2023/09/03 16:35:43.301 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/reflect/value.go:337
+2023/09/03 16:35:43.301 [C] [panic.go:971]  D:/DevSoftWare/WorkSpaces/GoWorkspace/pkg/mod/github.com/astaxie/beego@v1.12.3/router.go:897
+2023/09/03 16:35:43.301 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:2887
+2023/09/03 16:35:43.302 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/net/http/server.go:1952
+2023/09/03 16:35:43.302 [C] [panic.go:971]  D:/DevSoftWare/Go-1.16/src/runtime/asm_amd64.s:1371
+2023/09/03 16:35:43.303 [server.go:3137]  [HTTP] http: superfluous response.WriteHeader call from github.com/astaxie/beego/context.(*Response).WriteHeader (context.go:230)
+2023/09/03 16:36:54.350 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:36:54.450 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:37:51.474 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:37:51.556 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:46:16.338 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:46:16.427 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:46:26.526 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   6.3300745s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 16:48:49.120 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:48:49.206 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:48:58.977 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   2.1969507s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 16:50:20.031 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 16:50:20.118 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 16:50:25.671 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   2.2790832s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/03 17:27:11.031 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 17:27:11.120 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 17:27:21.800 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.0559ms|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
+2023/09/03 17:27:43.868 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|        222µs|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
+2023/09/03 17:28:46.510 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 17:28:46.596 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 17:29:22.721 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  32.1395488s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
+2023/09/03 17:34:06.923 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  20.4627683s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
+2023/09/03 21:11:30.703 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:11:30.792 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:14:40.556 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:14:40.644 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:19:14.613 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:19:14.701 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:25:37.795 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:25:37.960 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:29:06.498 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:29:06.587 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:36:35.077 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:36:35.166 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:42:44.099 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:42:44.191 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:46:23.324 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:46:23.418 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:48:00.493 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  44.8479732s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
+2023/09/03 21:50:17.408 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 21:50:17.493 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 21:50:24.372 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   3.1461888s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
+2023/09/03 22:10:54.439 [I] [main.go:13]  txs-analysis started! 
+2023/09/03 22:10:54.554 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/03 22:11:22.740 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   4.0922458s|   match|[46m POST    [0m /api/txs/txGraph   r:/apitxs/txGraph
+2023/09/03 22:12:07.775 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   9.2526018s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/03 22:12:50.407 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  23.6285167s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/03 22:13:01.408 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|    3.640348s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/03 22:14:48.074 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|1m39.4785111s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/03 22:15:40.903 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  49.1298904s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/03 22:16:16.112 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  32.8082771s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/04 10:13:13.276 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 10:13:13.388 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 10:30:53.667 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 10:30:53.752 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 10:45:01.548 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 10:45:01.639 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 10:46:53.854 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 10:46:53.936 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 10:49:45.339 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 10:49:45.424 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 10:51:32.423 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 10:51:32.501 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 10:57:04.110 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 10:57:04.272 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 10:57:51.226 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  41.8407323s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/04 11:03:55.572 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m| 3m24.461048s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/04 11:05:14.383 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   6.4044479s|   match|[46m POST    [0m /api/nft/startAnalysis   r:/apinft/startAnalysis
+2023/09/04 11:05:31.569 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   3.7988979s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
+2023/09/04 11:08:37.687 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 11:08:37.771 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 11:08:46.960 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   1.6965292s|   match|[46m POST    [0m /api/nft/trace   r:/apinft/trace
+2023/09/04 15:16:02.806 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 15:16:02.906 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 15:18:15.004 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 15:18:15.094 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 15:19:30.008 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  13.0581052s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/04 16:14:06.211 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|52m34.6949365s|   match|[46m POST    [0m /api/address/txAnalysis   r:/apiaddress/txAnalysis
+2023/09/04 16:30:36.372 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   3.4554073s|   match|[46m POST    [0m /api/txs/txGraph   r:/apitxs/txGraph
+2023/09/04 16:34:32.292 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   1.2929825s|   match|[46m POST    [0m /api/txs/txGraph   r:/apitxs/txGraph
+2023/09/04 16:36:37.514 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 16:36:37.609 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 16:36:41.116 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   1.6580473s|   match|[46m POST    [0m /api/txs/txGraph   r:/apitxs/txGraph
+2023/09/04 16:44:19.044 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 16:44:19.134 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 16:44:31.054 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|   2.2012813s|   match|[46m POST    [0m /api/txs/txGraph   r:/apitxs/txGraph
+2023/09/04 18:15:32.966 [E] [nft.go:79]  NFT NFTTransferDetailByAddress error. Error 1055: Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'tidb_block_browser.tb_contract_transaction.from' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by 
+2023/09/04 18:15:32.967 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|  28.4524254s|   match|[46m POST    [0m /api/nft/transferDetailByAddress   r:/apinft/transferDetailByAddress
+2023/09/04 18:42:55.143 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 18:42:55.231 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 18:43:02.355 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.0611ms|   match|[46m POST    [0m /api/nft/addressDetail   r:/apinft/addressDetail
+2023/09/04 18:43:29.794 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 18:43:29.881 [I] [asm_amd64.s:1371]  http server Running on http://:20800
+2023/09/04 18:43:31.920 [D] [server.go:2887]  |      127.0.0.1|[42m 200 [0m|     1.0915ms|   match|[46m POST    [0m /api/nft/addressDetail   r:/apinft/addressDetail
+2023/09/04 18:45:58.683 [I] [main.go:13]  txs-analysis started! 
+2023/09/04 18:45:58.767 [I] [asm_amd64.s:1371]  http server Running on http://:20800
