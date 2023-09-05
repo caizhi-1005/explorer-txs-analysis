@@ -82,6 +82,8 @@ func (this *AddressService) AddressTxDetail(req apiModels.ReqAddressTxDetail) (*
 
 		txDetailInfo.FromType = fromType
 		txDetailInfo.ToType = toType
+		txDetailInfo.From = req.From
+		txDetailInfo.To = req.To
 	}
 	return txDetailInfo, nil
 }
