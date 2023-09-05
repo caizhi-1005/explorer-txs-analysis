@@ -125,76 +125,87 @@ func (this *NftService) NFTTransferDetailByTokenId(req apiModels.ReqNFTTransferD
 //}
 
 // NFTAddressDetail NFT溯源-地址详情
-// todo 改为nebula查询
+
 func (this *NftService) NFTAddressDetail(req apiModels.ReqNFTAddressDetail) (*apiModels.RespNFTAddressDetail, error) {
-	//	地址类型
-	//	持有的 Token ID
-	//	历史持有过的 Token ID
-	//	最长持有 Token ID
-	//	最长持有时间
-	//todo 该地址没有所选的NFT交易记录
 	var res apiModels.RespNFTAddressDetail
 	res.AddressType = 1
 	res.LongestHoldTokenId = "3738"
 	res.LongestHoldTime = "24.97 天"
-	var hold apiModels.HoldTokenIds
-	var holdHis apiModels.HoldTokenIdsHistory
+	var hold apiModels.HoldTokenId
+	var holdHis apiModels.HoldTokenIdHistory
 	hold.HoldTokenId = "3738"
 	holdHis.HoldTokenIdHistory = "3738"
-	res.HoldTokenIdList = append(res.HoldTokenIdList, hold)
-	res.HoldTokenIdHistoryList = append(res.HoldTokenIdHistoryList, holdHis)
-
-	//tokenIdAndTypes, err := dbModels.HoldTokenIdAndAddressType(req.ContractAddress, req.Address)
-	//if err != nil {
-	//	beego.Error("dbModels.HoldTokenIdAndAddressType error.", err)
-	//}
-	//tokenIdHistorys, err := dbModels.HoldTokenIdHistory(req.ContractAddress, req.Address)
-	//if err != nil {
-	//	beego.Error("dbModels.HoldTokenIdHistory error.", err)
-	//}
-	//contractTxs, err := dbModels.LongestHold(req.ContractAddress, req.Address)
-	//if err != nil {
-	//	beego.Error("dbModels.LongestHold error.", err)
-	//	return nil, err
-	//}
-	//var startTime time.Time
-	//var endTime time.Time
-	//var holdTime time.Duration
-	//var holdNftNum int
-	//var holdNftNumHistory int
-	//
-	//var holdTokenIds []apiModels.HoldTokenIds
-	//
-	//var holdTokenIdsHistory []apiModels.HoldTokenIdsHistory
-	//
-	//for _, v := range contractTxs {
-	//
-	//	var startTime time.Time
-	//	var endTime time.Time
-	//	var holdTime time.Duration
-	//
-	//	if v.To == req.Address {
-	//		var holdTokenId apiModels.HoldTokenIds
-	//		holdTokenId.HoldTokenId = v.TokenId
-	//		holdTokenIds = append(holdTokenIds, holdTokenId)
-	//		holdTokenIds = append(holdTokenIds[:i], holdTokenIds[i+1:]...)
-	//		startTime = v.TxTime
-	//		holdNftNum++
-	//	}
-	//	if v.From == req.Address {
-	//		endTime = v.TxTime
-	//	}
-	//	holdTime = endTime.Sub(startTime)
-	//}
-	//
-	//var res *apiModels.RespNFTAddressDetail
-	//if len(tokenIdAndTypes) > 0 {
-	//	res.AddressType = tokenIdAndTypes[0].AccountType
-	//}
-	//res.HoldTokenIdList = tokenIdAndTypes
-	//res.HoldTokenIdHistoryList = tokenIdHistorys
+	res.HoldTokenIds = append(res.HoldTokenIds, hold)
+	res.HoldTokenIdsHistory = append(res.HoldTokenIdsHistory, holdHis)
 	return &res, nil
 }
+
+// todo 改为nebula查询
+//func (this *NftService) NFTAddressDetailNew(req apiModels.ReqNFTAddressDetail) (*apiModels.RespNFTAddressDetail, error) {
+//
+//	//todo 该地址没有所选的NFT交易记录
+//	var res apiModels.RespNFTAddressDetail
+//
+//	tokenIdAndTypes, err := dbModels.HoldTokenIdAndAddressType(req.ContractAddress, req.Address)
+//	if err != nil {
+//		beego.Error("dbModels.HoldTokenIdAndAddressType error.", err)
+//	}
+//	if len(tokenIdAndTypes) > 0 {
+//		res.AddressType = tokenIdAndTypes[0].AccountType //	地址类型
+//		for _, v := range tokenIdAndTypes {
+//			var tokenId apiModels.HoldTokenId
+//			tokenId.HoldTokenId = v.HoldTokenId
+//			res.HoldTokenIds = append(res.HoldTokenIds, tokenId) //	持有的 Token ID
+//		}
+//	}
+//
+//	tokenIdsHistory, err := dbModels.HoldTokenIdHistory(req.ContractAddress, req.Address)
+//	if err != nil {
+//		beego.Error("dbModels.HoldTokenIdHistory error.", err)
+//	}
+//
+//	if len(tokenIdsHistory) == 0 {
+//		return nil, errors.New("该地址没有所选的NFT交易记录")
+//	}
+//	res.HoldTokenIdsHistory = tokenIdsHistory //	历史持有过的 Token ID
+//
+//	//	最长持有 Token ID
+//	//	最长持有时间
+//	contractTxs, err := dbModels.LongestHold(req.ContractAddress, req.Address)
+//	if err != nil {
+//		beego.Error("dbModels.LongestHold error.", err)
+//		return nil, err
+//	}
+//	var startTime time.Time
+//	var endTime time.Time
+//	var holdTime time.Duration
+//	var holdNftNum int
+//	var holdNftNumHistory int
+//
+//	for _, v := range contractTxs {
+//		var startTime time.Time
+//		var endTime time.Time
+//		var holdTime time.Duration
+//		if v.To == req.Address {
+//			var holdTokenId apiModels.HoldTokenIds
+//			holdTokenId.HoldTokenId = v.TokenId
+//			holdTokenIds = append(holdTokenIds, holdTokenId)
+//			holdTokenIds = append(holdTokenIds[:i], holdTokenIds[i+1:]...)
+//			startTime = v.TxTime
+//			holdNftNum++
+//		}
+//		if v.From == req.Address {
+//			endTime = v.TxTime
+//		}
+//		holdTime = endTime.Sub(startTime)
+//	}
+//
+//	if len(tokenIdAndTypes) > 0 {
+//		res.AddressType = tokenIdAndTypes[0].AccountType
+//	}
+//
+//	return &res, nil
+//}
 
 // NFTDetail NFT溯源-NFT详情
 func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (apiModels.RespNFTDetail, error) {

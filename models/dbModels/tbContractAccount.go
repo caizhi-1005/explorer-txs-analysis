@@ -60,27 +60,27 @@ func HoldTokenIdCount(contractAddress, accountAddress string) (int, error) {
 
 
 // HoldTokenIdAndAddressType NFT溯源-地址详情-获取地址类型和持有的token Id
-//func HoldTokenIdAndAddressType(contractAddress, accountAddress string) ([]apiModels.HoldTokenId, error) {
-//	list := make([]apiModels.HoldTokenId, 0)
-//	orm := orm.NewOrm()
-//	sqlStr := "SELECT account_type, token_id FROM tb_contract_account WHERE contract_address = '" + contractAddress + "' and account_address = '" + accountAddress +"'"
-//	_, err := orm.Raw(sqlStr).QueryRows(&list)
-//	if err != nil {
-//		return nil, err
-//	}
-//	return list, nil
-//}
+func HoldTokenIdAndAddressType(contractAddress, accountAddress string) ([]apiModels.HoldTokenId, error) {
+	list := make([]apiModels.HoldTokenId, 0)
+	orm := orm.NewOrm()
+	sqlStr := "SELECT account_type, distinct(token_id) FROM tb_contract_account WHERE contract_address = '" + contractAddress + "' and account_address = '" + accountAddress +"'"
+	_, err := orm.Raw(sqlStr).QueryRows(&list)
+	if err != nil {
+		return nil, err
+	}
+	return list, nil
+}
 
 // HoldTokenIdHistory NFT溯源-地址详情-历史持有的tokenId列表
-//func HoldTokenIdHistory(contractAddress, accountAddress string) ([]apiModels.HoldTokenIdHistory, error) {
-//	list := make([]apiModels.HoldTokenIdHistory, 0)
-//	orm := orm.NewOrm()
-//	sqlStr := "SELECT token_id FROM tb_contract_transaction WHERE token_address = '" + contractAddress + "' and account_address = '" + accountAddress +"'"
-//	_, err := orm.Raw(sqlStr).QueryRows(&list)
-//	if err != nil {
-//		return nil, err
-//	}
-//	return list, nil
-//}
+func HoldTokenIdHistory(contractAddress, accountAddress string) ([]apiModels.HoldTokenIdHistory, error) {
+	list := make([]apiModels.HoldTokenIdHistory, 0)
+	orm := orm.NewOrm()
+	sqlStr := "SELECT distinct(token_id) FROM tb_contract_transaction WHERE token_address = '" + contractAddress + "' and `to` = '" + accountAddress +"'"
+	_, err := orm.Raw(sqlStr).QueryRows(&list)
+	if err != nil {
+		return nil, err
+	}
+	return list, nil
+}
 
 

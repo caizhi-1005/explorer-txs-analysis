@@ -19,6 +19,7 @@ type ReqAddressDetail struct {
 	ContractAddress string `json:"contract_address"`
 }
 
+
 type RespContractAddressInfo struct {
 	Address     string  `json:"address"`
 	AccountType int     `json:"account_type"`

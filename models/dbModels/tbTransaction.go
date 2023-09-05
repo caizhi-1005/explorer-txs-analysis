@@ -98,9 +98,15 @@ func GetAddressTxList(address string) (Res *apiModels.RespAddressDetail, err err
 }
 
 // 地址分析-交易详情-交易信息
-func GetAddressTxDetailInfo(fromAddress, toAddress string) (Res *apiModels.RespTxDetailInfo, err error) {
+func GetAddressTxDetailInfo(req apiModels.ReqAddressTxDetail) (Res *apiModels.RespTxDetailInfo, err error) {
 	ormer := orm.NewOrm()
-	sqlStr := "SELECT count(0) as tx_count, sum(amount) as tx_amount, min(tx_time) as first_tx_time, max(tx_time) as latest_tx_time from tb_transaction WHERE `from`='" + fromAddress + "' and `to`= '" + toAddress + "';"
+	condition := ""
+	table := "tb_transaction"
+	if len(req.ContractAddress) > 0 {
+		table = "tb_contract_transaction"
+		condition = " and token_address = '" + req.ContractAddress + "'"
+	}
+	sqlStr := "SELECT count(distinct tx_hash) as tx_count, sum(amount) as tx_amount, min(tx_time) as first_tx_time, max(tx_time) as latest_tx_time from " + table + " WHERE `from`='" + req.From + "' and `to`= '" + req.To + "'" + condition
 	err = ormer.Raw(sqlStr).QueryRow(&Res)
 	return
 }

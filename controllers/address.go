@@ -53,18 +53,21 @@ func (this *AddressController) AddressDetail() {
 // todo 去掉此接口，改查nebula返回图数据后，前端直接获取单笔数据
 func (this *AddressController) AddressTxDetail() {
 	this.IsPost()
-	Req := apiModels.ReqCommon{}
-	if len(Req.Field) <= 0 || len(Req.Value) <= 0 {
+	Req := apiModels.ReqAddressTxDetail{}
+	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
+		beego.Error(constant.ErrParam, err)
+		this.ResponseInfo(500, constant.ErrParam, nil)
+	}
+	if len(Req.From) <= 0 || len(Req.To) <= 0 {
 		beego.Error(constant.ErrParam)
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
-	//res, err := this.addressService.AddressTxDetail(Req.Value)
-	//if err != nil {
-	//	beego.Error(constant.ErrSystem, err)
-	//	this.ResponseInfo(500, constant.ErrSystem, nil)
-	//}
-	this.ResponseInfo(200, nil, nil)
-	//this.ResponseInfo(200, nil, res)
+	res, err := this.addressService.AddressTxDetail(Req)
+	if err != nil {
+		beego.Error(constant.ErrSystem, err)
+		this.ResponseInfo(500, constant.ErrSystem, nil)
+	}
+	this.ResponseInfo(200, nil, res)
 }
 
 // AddressTxList 地址分析-交易列表

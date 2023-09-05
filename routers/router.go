@@ -19,7 +19,6 @@ func init() {
 			beego.NSRouter("/detail", &controllers.AddressController{}, "post:AddressDetail"),
 			//地址分析图
 			beego.NSRouter("/txAnalysis", &controllers.AddressController{}, "post:AddressTxAnalysis"),
-			//todo 前端可直接通过交易图谱获取数据
 			//交易详情
 			beego.NSRouter("/txDetail", &controllers.AddressController{}, "post:AddressTxDetail"),
 			//交易详情-交易列表（分页）

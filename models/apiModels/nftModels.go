@@ -24,20 +24,21 @@ type ReqNFTAddressDetail struct {
 }
 
 type RespNFTAddressDetail struct {
-	AddressType            int                   `json:"address_type"`
-	HoldTokenIdList        []HoldTokenIds        `json:"hold_token_id_list"`
-	HoldTokenIdHistoryList []HoldTokenIdsHistory `json:"hold_token_id_history_list"`
-	LongestHoldTokenId     string                `json:"longest_hold_token_id"`
-	LongestHoldTime        string                `json:"longest_hold_time"`
-	MaxProfitTokenId       string                `json:"max_profit_token_id"`
-	MaxProfitValue         string                `json:"max_profit_value"`
+	AddressType         int                   `json:"address_type"`
+	HoldTokenIds        []HoldTokenId         `json:"hold_token_ids"`
+	HoldTokenIdsHistory []HoldTokenIdHistory `json:"hold_token_ids_history"`
+	LongestHoldTokenId  string                `json:"longest_hold_token_id"`
+	LongestHoldTime     string                `json:"longest_hold_time"`
+	MaxProfitTokenId    string                `json:"max_profit_token_id"`
+	MaxProfitValue      string                `json:"max_profit_value"`
 }
 
-type HoldTokenIds struct {
+type HoldTokenId struct {
 	HoldTokenId string `json:"token_id"`
+	AccountType int    `json:"account_type,omitempty"`
 }
 
-type HoldTokenIdsHistory struct {
+type HoldTokenIdHistory struct {
 	HoldTokenIdHistory string `json:"hold_token_id_history"`
 }
 

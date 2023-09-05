@@ -64,11 +64,24 @@ func (this *AddressService) AddressDetail(address, contractAddress string) (*api
 }
 
 // AddressTxDetail 地址分析-交易详情
-// todo 删除
-func (this *AddressService) AddressTxDetail(fromAddress, toAddress string) (*apiModels.RespTxDetailInfo, error) {
-	txDetailInfo, err := dbModels.GetAddressTxDetailInfo(fromAddress, toAddress)
+func (this *AddressService) AddressTxDetail(req apiModels.ReqAddressTxDetail) (*apiModels.RespTxDetailInfo, error) {
+	txDetailInfo, err := dbModels.GetAddressTxDetailInfo(req)
 	if err != nil {
 		beego.Error("dbModels.GetAddressTxDetailInfo error.", err)
+	}
+	if txDetailInfo != nil {
+		fromType, err := dbModels.GetAddressType(req.From)
+		if err != nil {
+			beego.Error("from address dbModels.GetAddressType error.", err)
+		}
+
+		toType, err := dbModels.GetAddressType(req.To)
+		if err != nil {
+			beego.Error("to address dbModels.GetAddressType error.", err)
+		}
+
+		txDetailInfo.FromType = fromType
+		txDetailInfo.ToType = toType
 	}
 	return txDetailInfo, nil
 }

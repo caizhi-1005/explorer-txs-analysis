@@ -87,3 +87,14 @@ func GetAddressInfo(address string) (*apiModels.RespContractAddressInfo, error) 
 	}
 	return accountInfo, nil
 }
+
+func GetAddressType(address string) (int, error) {
+	ormer := orm.NewOrm()
+	var accountType int
+	sql := "select account_type from tb_account_info where account_address ='" + address + "'"
+	err := ormer.Raw(sql).QueryRow(&accountType)
+	if err != nil {
+		return 0, err
+	}
+	return accountType, nil
+}
