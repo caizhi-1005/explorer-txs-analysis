@@ -79,7 +79,7 @@ type RespNFTTxDetail struct {
 
 type ReqNFTDetail struct {
 	ContractAddress string `json:"contract_address"`
-	TokenID         string `json:"token_id"`
+	TokenId         string `json:"token_id"`
 }
 
 type RespNFTDetail struct {
