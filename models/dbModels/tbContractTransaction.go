@@ -135,16 +135,26 @@ func NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) {
 	var res *apiModels.RespNFTDetail
 	orm := orm.NewOrm()
 
+	var tokenId string
+	if len(req.TokenId) > 0 {
+		//token_id 转换
+		tokenIdInt, ok := new(big.Int).SetString(req.TokenId, 10)
+		if !ok {
+			return nil, errors.New("convert token_id error.")
+		}
+		tokenId = common.BigToHash(tokenIdInt).String()
+	}
+
 	var txCount int
-	countSql := "SELECT count(0) as transfer_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenID + "'"
+	countSql := "SELECT count(0) as transfer_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + tokenId + "'"
 	err := orm.Raw(countSql).QueryRow(&txCount)
 
 	var histHolderCount int
-	histHoldersSql := "SELECT count(distinct `to`) as history_holder_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenID + "'"
+	histHoldersSql := "SELECT count(distinct `to`) as history_holder_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + tokenId + "'"
 	err = orm.Raw(histHoldersSql).QueryRow(&histHolderCount)
 
 	var mintTime time.Time
-	mintTimeSql := "SELECT tx_time from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenID + "' and `from` = '0x0000000000000000000000000000000000000000'"
+	mintTimeSql := "SELECT tx_time from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + tokenId + "' and `from` = '0x0000000000000000000000000000000000000000'"
 	err = orm.Raw(mintTimeSql).QueryRow(&mintTime)
 	if err != nil {
 		return nil, err
