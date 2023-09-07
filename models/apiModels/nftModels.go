@@ -24,17 +24,17 @@ type ReqNFTAddressDetail struct {
 }
 
 type RespNFTAddressDetail struct {
-	AddressType         int                   `json:"address_type"`
-	HoldTokenIds        []HoldTokenId         `json:"hold_token_ids"`
+	AddressType         int                  `json:"address_type"`
+	HoldTokenIds        []HoldTokenId        `json:"hold_token_ids"`
 	HoldTokenIdsHistory []HoldTokenIdHistory `json:"hold_token_ids_history"`
-	LongestHoldTokenId  string                `json:"longest_hold_token_id"`
+	LongestHoldTokenId  string               `json:"longest_hold_token_id"`
 	LongestHoldTime     string                `json:"longest_hold_time"`
-	MaxProfitTokenId    string                `json:"max_profit_token_id"`
-	MaxProfitValue      string                `json:"max_profit_value"`
+	MaxProfitTokenId    string               `json:"max_profit_token_id"`
+	MaxProfitValue      string               `json:"max_profit_value"`
 }
 
 type HoldTokenId struct {
-	HoldTokenId string `json:"token_id"`
+	TokenId     string `json:"token_id"`
 	AccountType int    `json:"account_type,omitempty"`
 }
 
@@ -85,15 +85,18 @@ type ReqNFTDetail struct {
 type RespNFTDetail struct {
 	Name               string `json:"name"`
 	Symbol             string `json:"symbol"`
+	Logo               string `json:"logo"`
 	TokenType          string `json:"token_type"`
 	Holder             string `json:"holder"`
 	ContractAddress    string `json:"contract_address"`
 	TransferCount      int    `json:"transfer_count"`
 	HistoryHolderCount int    `json:"history_holder_count"`
-	//MintTime           time.Time `json:"mint_time,omitempty" copier:"-"`
-	MintTime        string `json:"mint_time"`
-	LongestHoldTime string `json:"longest_hold_time"`
-	CurrentHoldTime string `json:"current_hold_time"`
+	MintTime           string `json:"mint_time"`
+	LongestHoldTime    string  `json:"longest_hold_time"`
+	CurrentHoldTime    string `json:"current_hold_time"`
+	LatestPrice        string `json:"latest_price"`
+	HighestPrice       string `json:"highest_price"`
+	LowestPrice        string `json:"lowest_price"`
 }
 
 type ReqNFTTransferDetailsByTokenId struct {

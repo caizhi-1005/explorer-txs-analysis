@@ -50,7 +50,6 @@ func (this *AddressController) AddressDetail() {
 }
 
 // AddressTxDetail 地址分析-交易详情
-// todo 去掉此接口，改查nebula返回图数据后，前端直接获取单笔数据
 func (this *AddressController) AddressTxDetail() {
 	this.IsPost()
 	Req := apiModels.ReqAddressTxDetail{}

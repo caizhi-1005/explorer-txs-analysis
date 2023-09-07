@@ -95,7 +95,7 @@ func ContractInfo(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) 
 	}
 	req.TokenID = common.BigToHash(tokenId).String()
 
-	sqlStr := "SELECT `name`, symbol, c.contract_type as token_type, a.account_address as holder from tb_contract c left join tb_contract_account a on c.contract_address = a.contract_address where c.contract_address = '" + req.ContractAddress + "' and a.token_id = '" + req.TokenID + "'"
+	sqlStr := "SELECT `name`, symbol, logo, c.contract_type as token_type, a.account_address as holder from tb_contract c left join tb_contract_account a on c.contract_address = a.contract_address where c.contract_address = '" + req.ContractAddress + "' and a.token_id = '" + req.TokenID + "'"
 	err := orm.Raw(sqlStr).QueryRow(&res)
 	if err != nil {
 		return nil, err

@@ -22,7 +22,7 @@ type TbContractTransaction struct {
 	TokenAddress    string    `orm:"column(token_address);size(255);null" description:"token地址"`
 	TokenType       int       `orm:"column(token_type);null" description:"token类型 1-erc20 2-erc721"`
 	From            string    `orm:"column(from);size(255);null" description:"发起地址"`
-	To              string    `orm:"column(to);size(255);null" description:"到大地址"`
+	To              string    `orm:"column(to);size(255);null" description:"到达地址"`
 	Value           string    `orm:"column(value);size(2048);null" description:"交易值"`
 	Amount          float64   `orm:"column(amount);null;digits(64);decimals(18)" description:"交易金额"`
 	TokenId         string    `orm:"column(token_id);size(2048);null" description:"tokenId"`
@@ -95,17 +95,16 @@ func NFTTxDetail(req apiModels.ReqNFTTxDetail) (*apiModels.RespNFTTxDetail, int,
 	orm := orm.NewOrm()
 
 	var count int
-	sqlCount := "SELECT count(0) as transfer_count from tb_contract_transaction where tx_hash = '" + req.TxHash + "' and token_address = '" + req.ContractAddress +"'"
+	sqlCount := "SELECT count(0) as transfer_count from tb_contract_transaction where tx_hash = '" + req.TxHash + "' and token_address = '" + req.ContractAddress + "'"
 	orm.Raw(sqlCount).QueryRow(&count)
 
-	sqlStr := "SELECT token_id, `from`, `to`, max(tx_time) as tx_time, topics1 as method from tb_contract_transaction c left join tb_event e on c.tx_hash = e.tx_hash where c.tx_hash = '" + req.TxHash + "' and token_address = '" + req.ContractAddress +"'"
+	sqlStr := "SELECT token_id, `from`, `to`, max(tx_time) as tx_time, topics1 as method from tb_contract_transaction c left join tb_event e on c.tx_hash = e.tx_hash where c.tx_hash = '" + req.TxHash + "' and token_address = '" + req.ContractAddress + "'"
 	err := orm.Raw(sqlStr).QueryRow(&res)
 	if err != nil {
 		return nil, 0, err
 	}
 	return res, count, nil
 }
-
 
 // NFTTransferDetailByTokenId NFT溯源-交易详情-根据token id获取流转详情列表
 func NFTTransferDetailByTokenId(req apiModels.ReqNFTTransferDetailsByTokenId) ([]*apiModels.RespNFTTransferDetailsByTokenId, error) {
@@ -141,11 +140,11 @@ func NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) {
 	err := orm.Raw(countSql).QueryRow(&txCount)
 
 	var histHolderCount int
-	histHoldersSql := "SELECT count(distinct `to`) as history_holder_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenID +"'"
+	histHoldersSql := "SELECT count(distinct `to`) as history_holder_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenID + "'"
 	err = orm.Raw(histHoldersSql).QueryRow(&histHolderCount)
 
 	var mintTime time.Time
-	mintTimeSql := "SELECT tx_time from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenID +"' and `from` = '0x0000000000000000000000000000000000000000'"
+	mintTimeSql := "SELECT tx_time from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenID + "' and `from` = '0x0000000000000000000000000000000000000000'"
 	err = orm.Raw(mintTimeSql).QueryRow(&mintTime)
 	if err != nil {
 		return nil, err
@@ -160,12 +159,35 @@ func NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) {
 }
 
 // LongestHold NFT溯源-地址详情-最长持有的tokenId和持有时间
-// todo 最好改为查nebula
-func LongestHold(contractAddress, accountAddress string) ([]*TbContractTransaction, error) {
+func LongestHold(contractAddress, accountAddress, tokenId string) ([]*TbContractTransaction, error) {
 	res := make([]*TbContractTransaction, 0)
 	orm := orm.NewOrm()
-	sqlStr := "SELECT token_id, tx_time,`from`,`to` FROM tb_contract_transaction WHERE token_address = '" + contractAddress + "' and (`from` = '" + accountAddress + "' or `to` = '" + accountAddress + "') order by tx_time asc"
+	condition := ""
+	if len(tokenId) > 0 {
+		//token_id 转换
+		tokenIdInt, ok := new(big.Int).SetString(tokenId, 10)
+		if !ok {
+			return nil, errors.New("convert token_id error.")
+		}
+		tokenIdNew := common.BigToHash(tokenIdInt).String()
+		condition = " and token_id = '" + tokenIdNew + "'"
+	}
+	if len(accountAddress) > 0 {
+		condition = " and (`from` = '" + accountAddress + "' or `to` = '" + accountAddress + "') "
+	}
+	sqlStr := "SELECT token_id, tx_time,`from`,`to` FROM tb_contract_transaction WHERE token_type = 2 and token_address = '" + contractAddress + "'" + condition + " order by tx_time asc"
 	_, err := orm.Raw(sqlStr).QueryRows(&res)
 	return res, err
 }
 
+// HoldTokenInfo NFT溯源-NFT详情-持有者和当前开始持有时间
+func HoldTokenInfo(contractAddress, tokenId string) (*TbContractTransaction, error) {
+	var res *TbContractTransaction
+	orm := orm.NewOrm()
+	sqlStr := "SELECT `to`, tx_time FROM tb_contract_transaction WHERE token_address = '" + contractAddress + "' and token_id = '" + tokenId + "' order by tx_time desc limit 1"
+	err := orm.Raw(sqlStr).QueryRow(&res)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
