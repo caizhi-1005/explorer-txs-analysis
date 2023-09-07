@@ -89,13 +89,13 @@ func ContractInfo(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) 
 	orm := orm.NewOrm()
 
 	//token_id 转换
-	tokenId, ok := new(big.Int).SetString(req.TokenID, 10)
+	tokenId, ok := new(big.Int).SetString(req.TokenId, 10)
 	if !ok {
 		return nil, errors.New("convert token_id error.")
 	}
-	req.TokenID = common.BigToHash(tokenId).String()
+	req.TokenId = common.BigToHash(tokenId).String()
 
-	sqlStr := "SELECT `name`, symbol, logo, c.contract_type as token_type, a.account_address as holder from tb_contract c left join tb_contract_account a on c.contract_address = a.contract_address where c.contract_address = '" + req.ContractAddress + "' and a.token_id = '" + req.TokenID + "'"
+	sqlStr := "SELECT `name`, symbol, logo, c.contract_type as token_type, a.account_address as holder from tb_contract c left join tb_contract_account a on c.contract_address = a.contract_address where c.contract_address = '" + req.ContractAddress + "' and a.token_id = '" + req.TokenId + "'"
 	err := orm.Raw(sqlStr).QueryRow(&res)
 	if err != nil {
 		return nil, err

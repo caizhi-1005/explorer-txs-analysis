@@ -280,7 +280,7 @@ func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNF
 	res.ContractAddress = req.ContractAddress
 
 	//持有者、当前开始持有时间
-	contractAccount, err := dbModels.HoldTokenInfo(req.ContractAddress, req.TokenID)
+	contractAccount, err := dbModels.HoldTokenInfo(req.ContractAddress, req.TokenId)
 	if err != nil {
 		beego.Error("dbModels.HoldTokenInfo error.", err)
 	}
@@ -290,7 +290,7 @@ func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNF
 		res.CurrentHoldTime = utils.Float64String(time.Since(contractAccount.TxTime).Hours() / 24)
 	}
 
-	contractTxs, err := dbModels.LongestHold(req.ContractAddress, "", req.TokenID)
+	contractTxs, err := dbModels.LongestHold(req.ContractAddress, "", req.TokenId)
 	if err != nil {
 		beego.Error("NFTDetail dbModels.LongestHold error.", err)
 		//return nil, err
