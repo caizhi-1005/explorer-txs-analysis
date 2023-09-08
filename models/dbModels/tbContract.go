@@ -1,10 +1,7 @@
 package dbModels
 
 import (
-	"errors"
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/server/txs-analysis/models/apiModels"
-	"math/big"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -88,12 +85,12 @@ func ContractInfo(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) 
 	var res *apiModels.RespNFTDetail
 	orm := orm.NewOrm()
 
-	//token_id 转换
-	tokenId, ok := new(big.Int).SetString(req.TokenId, 10)
-	if !ok {
-		return nil, errors.New("convert token_id error.")
-	}
-	req.TokenId = common.BigToHash(tokenId).String()
+	////token_id 转换
+	//tokenId, ok := new(big.Int).SetString(req.TokenId, 10)
+	//if !ok {
+	//	return nil, errors.New("convert token_id error.")
+	//}
+	//req.TokenId = common.BigToHash(tokenId).String()
 
 	sqlStr := "SELECT `name`, symbol, logo, c.contract_type as token_type, a.account_address as holder from tb_contract c left join tb_contract_account a on c.contract_address = a.contract_address where c.contract_address = '" + req.ContractAddress + "' and a.token_id = '" + req.TokenId + "'"
 	err := orm.Raw(sqlStr).QueryRow(&res)

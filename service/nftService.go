@@ -254,6 +254,15 @@ func getLongestHold(contractTxs []*dbModels.TbContractTransaction, accountAddres
 // NFTDetail NFT溯源-NFT详情
 func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) {
 	res := apiModels.RespNFTDetail{}
+	if len(req.TokenId) > 0 {
+		//token_id 转换
+		tokenIdInt, ok := new(big.Int).SetString(req.TokenId, 10)
+		if !ok {
+			return nil, errors.New("convert token_id error.")
+		}
+		req.TokenId = common.BigToHash(tokenIdInt).String()
+	}
+
 	detail, err := dbModels.NFTDetail(req)
 	if err != nil {
 		beego.Error("dbModels.NFTDetail error.", err)

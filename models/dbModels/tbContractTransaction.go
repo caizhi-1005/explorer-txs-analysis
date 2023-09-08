@@ -132,40 +132,29 @@ func NFTTransferDetailByTokenId(req apiModels.ReqNFTTransferDetailsByTokenId) ([
 
 // NFTDetail NFT溯源-NFT详情
 func NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) {
-	var res *apiModels.RespNFTDetail
+	var res apiModels.RespNFTDetail
 	orm := orm.NewOrm()
-
-	var tokenId string
-	if len(req.TokenId) > 0 {
-		//token_id 转换
-		tokenIdInt, ok := new(big.Int).SetString(req.TokenId, 10)
-		if !ok {
-			return nil, errors.New("convert token_id error.")
-		}
-		tokenId = common.BigToHash(tokenIdInt).String()
-	}
-
-	var txCount int
-	countSql := "SELECT count(0) as transfer_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + tokenId + "'"
-	err := orm.Raw(countSql).QueryRow(&txCount)
+	var transferCount int
+	countSql := "SELECT count(0) as transfer_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenId + "'"
+	err := orm.Raw(countSql).QueryRow(&transferCount)
 
 	var histHolderCount int
-	histHoldersSql := "SELECT count(distinct `to`) as history_holder_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + tokenId + "'"
+	histHoldersSql := "SELECT count(distinct `to`) as history_holder_count from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenId + "'"
 	err = orm.Raw(histHoldersSql).QueryRow(&histHolderCount)
 
 	var mintTime time.Time
-	mintTimeSql := "SELECT tx_time from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + tokenId + "' and `from` = '0x0000000000000000000000000000000000000000'"
+	mintTimeSql := "SELECT tx_time from tb_contract_transaction where token_address = '" + req.ContractAddress + "' and token_id = '" + req.TokenId + "' and `from` = '0x0000000000000000000000000000000000000000'"
 	err = orm.Raw(mintTimeSql).QueryRow(&mintTime)
 	if err != nil {
 		return nil, err
 	}
 
-	res.TransferCount = txCount
+	res.TransferCount = transferCount
 	res.HistoryHolderCount = histHolderCount
 
 	// 处理mint_time
 	res.MintTime = utils.Float64String(time.Since(mintTime).Hours() / 24)
-	return res, nil
+	return &res, nil
 }
 
 // LongestHold NFT溯源-地址详情-最长持有的tokenId和持有时间
@@ -174,13 +163,7 @@ func LongestHold(contractAddress, accountAddress, tokenId string) ([]*TbContract
 	orm := orm.NewOrm()
 	condition := ""
 	if len(tokenId) > 0 {
-		//token_id 转换
-		tokenIdInt, ok := new(big.Int).SetString(tokenId, 10)
-		if !ok {
-			return nil, errors.New("convert token_id error.")
-		}
-		tokenIdNew := common.BigToHash(tokenIdInt).String()
-		condition = " and token_id = '" + tokenIdNew + "'"
+		condition = " and token_id = '" + tokenId + "'"
 	}
 	if len(accountAddress) > 0 {
 		condition = " and (`from` = '" + accountAddress + "' or `to` = '" + accountAddress + "') "
