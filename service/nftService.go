@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/server/txs-analysis/models/apiModels"
@@ -270,7 +271,7 @@ func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNF
 	if detail != nil {
 		res.TransferCount = detail.TransferCount           // 流转次数
 		res.HistoryHolderCount = detail.HistoryHolderCount // 历史持有者数量
-		res.MintTime = detail.MintTime                     // 铸造时间
+		res.MintTime = detail.MintTime + "天"                  // 铸造时间
 	}
 
 	contract, err := dbModels.ContractInfo(req)
@@ -296,7 +297,7 @@ func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNF
 	if contractAccount != nil {
 		res.Holder = contractAccount.To // 持有者
 		// 处理当前持有时间
-		res.CurrentHoldTime = utils.Float64String(time.Since(contractAccount.TxTime).Hours() / 24)
+		res.CurrentHoldTime = fmt.Sprintf("%.2f",time.Since(contractAccount.TxTime).Hours() / 24) + "天"
 	}
 
 	contractTxs, err := dbModels.LongestHold(req.ContractAddress, "", req.TokenId)
@@ -334,9 +335,14 @@ func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNF
 		}
 
 		// 处理最长持有时间
-		maxHoldTimeBigInt := big.NewInt(maxHoldTime)
-		maxHoldDay := maxHoldTimeBigInt.Div(maxHoldTimeBigInt, big.NewInt(86400))
-		res.LongestHoldTime = maxHoldDay.String() + "天"
+		//maxHoldTimeBigInt := big.NewInt(maxHoldTime)
+		//maxHoldDay := maxHoldTimeBigInt.Div(maxHoldTimeBigInt, big.NewInt(86400))
+		//res.LongestHoldTime = maxHoldDay.String() + "天"
+
+		maxHoldTimeBig := big.NewFloat(float64(maxHoldTime))
+		maxHoldDay := maxHoldTimeBig.Quo(maxHoldTimeBig, big.NewFloat(86400))
+		maxFloat, _ := maxHoldDay.Float64()
+		res.LongestHoldTime = fmt.Sprintf("%.2f", maxFloat) + "天"
 	}
 
 	return &res, nil

@@ -2,9 +2,9 @@ package dbModels
 
 import (
 	"errors"
+	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/server/txs-analysis/models/apiModels"
-	"github.com/server/txs-analysis/utils"
 	"math/big"
 	"strconv"
 	"time"
@@ -153,7 +153,7 @@ func NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) {
 	res.HistoryHolderCount = histHolderCount
 
 	// 处理mint_time
-	res.MintTime = utils.Float64String(time.Since(mintTime).Hours() / 24)
+	res.MintTime = fmt.Sprintf("%.2f",time.Since(mintTime).Hours() / 24)
 	return &res, nil
 }
 

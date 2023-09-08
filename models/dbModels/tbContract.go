@@ -82,20 +82,12 @@ func NFTList() ([]*apiModels.RespNftList, error) {
 }
 
 func ContractInfo(req apiModels.ReqNFTDetail) (*apiModels.RespNFTDetail, error) {
-	var res *apiModels.RespNFTDetail
+	var res apiModels.RespNFTDetail
 	orm := orm.NewOrm()
-
-	////token_id 转换
-	//tokenId, ok := new(big.Int).SetString(req.TokenId, 10)
-	//if !ok {
-	//	return nil, errors.New("convert token_id error.")
-	//}
-	//req.TokenId = common.BigToHash(tokenId).String()
-
-	sqlStr := "SELECT `name`, symbol, logo, c.contract_type as token_type, a.account_address as holder from tb_contract c left join tb_contract_account a on c.contract_address = a.contract_address where c.contract_address = '" + req.ContractAddress + "' and a.token_id = '" + req.TokenId + "'"
+	sqlStr := "SELECT `name`, symbol, logo, contract_type as token_type from tb_contract where contract_address = '" + req.ContractAddress + "'"
 	err := orm.Raw(sqlStr).QueryRow(&res)
 	if err != nil {
 		return nil, err
 	}
-	return res, nil
+	return &res, nil
 }
