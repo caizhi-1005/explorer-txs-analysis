@@ -28,7 +28,7 @@ type RespNFTAddressDetail struct {
 	HoldTokenIds        []HoldTokenId        `json:"hold_token_ids"`
 	HoldTokenIdsHistory []HoldTokenIdHistory `json:"hold_token_ids_history"`
 	LongestHoldTokenId  string               `json:"longest_hold_token_id"`
-	LongestHoldTime     string                `json:"longest_hold_time"`
+	LongestHoldTime     string               `json:"longest_hold_time"`
 	MaxProfitTokenId    string               `json:"max_profit_token_id"`
 	MaxProfitValue      string               `json:"max_profit_value"`
 }
@@ -65,6 +65,7 @@ type RespNFTTransferDetailsByAddress struct {
 type ReqNFTTxDetail struct {
 	ContractAddress string `json:"contract_address"`
 	TxHash          string `json:"tx_hash"`
+	//TokenId         string `json:"token_id"`
 }
 
 type RespNFTTxDetail struct {
@@ -92,7 +93,7 @@ type RespNFTDetail struct {
 	TransferCount      int    `json:"transfer_count"`
 	HistoryHolderCount int    `json:"history_holder_count"`
 	MintTime           string `json:"mint_time"`
-	LongestHoldTime    string  `json:"longest_hold_time"`
+	LongestHoldTime    string `json:"longest_hold_time"`
 	CurrentHoldTime    string `json:"current_hold_time"`
 	LatestPrice        string `json:"latest_price"`
 	HighestPrice       string `json:"highest_price"`

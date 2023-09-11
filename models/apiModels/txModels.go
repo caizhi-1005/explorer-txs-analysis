@@ -18,6 +18,11 @@ type ReqAddressTxGraph struct {
 	Direction       string `json:"direction"` //in out all
 }
 
+type ReqTxDetail struct {
+	ReqCommon
+	ContractAddress string `json:"contract_address"`
+}
+
 type RespAddressTxGraph struct {
 	//当前地址，地址类型
 	//目标地址，地址类型

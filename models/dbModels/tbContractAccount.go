@@ -37,7 +37,8 @@ func init() {
 func GetContractAddressInfo(address, contractAddress string) (*apiModels.RespContractAddressInfo, error) {
 	ormer := orm.NewOrm()
 	var accountInfo *apiModels.RespContractAddressInfo
-	sql := "select a.account_type, a.balance, c.symbol from tb_contract_account a left join tb_contract c on a.contract_address = c.contract_address where c.name != '' and c.symbol != '' and a.account_address ='" + address + "' and a.contract_address = '" + contractAddress + "'"
+	//sql := "select a.account_type, a.balance, c.symbol from tb_contract_account a left join tb_contract c on a.contract_address = c.contract_address where c.name != '' and c.symbol != '' and a.account_address ='" + address + "' and a.contract_address = '" + contractAddress + "'"
+	sql := "select account_type, balance from tb_contract_account where account_address ='" + address + "' and contract_address = '" + contractAddress + "'"
 	err := ormer.Raw(sql).QueryRow(&accountInfo)
 	if err != nil {
 		return nil, err

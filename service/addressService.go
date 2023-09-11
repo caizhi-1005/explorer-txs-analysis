@@ -1,8 +1,10 @@
 package service
 
 import (
+	"errors"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/server/txs-analysis/constant"
 	"github.com/server/txs-analysis/models/apiModels"
 	"github.com/server/txs-analysis/models/dbModels"
 	"github.com/server/txs-analysis/models/nebulaModels"
@@ -27,14 +29,27 @@ func (this *AddressService) AddressDetail(address, contractAddress string) (*api
 	// CMP
 	if len(contractAddress) == 0 {
 		accountInfo, err = dbModels.GetAddressInfo(address)
-		if err != nil && err != orm.ErrNoRows {
-			beego.Error("dbModels.GetAddressInfo error.", err)
+		if err == orm.ErrNoRows {
+			beego.Error("dbModels.GetAddressInfo error.", err, " address:", address)
+			return nil, errors.New(constant.ErrAddress)
 		}
+		if err != nil {
+			beego.Error("dbModels.GetAddressInfo error.", err, " address:", address)
+		}
+
 	} else {
 		accountInfo, err = dbModels.GetContractAddressInfo(address, contractAddress)
 		if err != nil && err != orm.ErrNoRows {
-			beego.Error("dbModels.GetContractAddressInfo error.", err)
+			beego.Error("dbModels.GetContractAddressInfo error.", err, " address:", address, "contract_address:", contractAddress)
 		}
+	}
+
+	var res apiModels.RespAddressDetail
+	res.Address = address
+
+	if accountInfo != nil {
+		res.Type = accountInfo.AccountType
+		res.Balance = accountInfo.Balance
 	}
 
 	// 地址的交易相关信息
@@ -46,21 +61,15 @@ func (this *AddressService) AddressDetail(address, contractAddress string) (*api
 
 	//组装数据
 	if addressTxInfo != nil {
-		res := &apiModels.RespAddressDetail{
-			Address:            address,
-			Type:               accountInfo.AccountType,
-			Balance:            accountInfo.Balance,
-			OutAddressCount:    addressTxInfo.OutAddressCount,
-			InAddressCount:     addressTxInfo.InAddressCount,
-			FirstTxTime:        addressTxInfo.FirstTxTime,
-			TxCount:            addressTxInfo.TxCount,
-			MaxTxAmount:        addressTxInfo.MaxTxAmount,
-			ReceiveAmountTotal: addressTxInfo.ReceiveAmountTotal,
-			SendAmountTotal:    addressTxInfo.SendAmountTotal,
-		}
-		return res, nil
+		res.OutAddressCount = addressTxInfo.OutAddressCount
+		res.InAddressCount = addressTxInfo.InAddressCount
+		res.FirstTxTime = addressTxInfo.FirstTxTime
+		res.TxCount = addressTxInfo.TxCount
+		res.MaxTxAmount = addressTxInfo.MaxTxAmount
+		res.ReceiveAmountTotal = addressTxInfo.ReceiveAmountTotal
+		res.SendAmountTotal = addressTxInfo.SendAmountTotal
 	}
-	return nil, nil
+	return &res, nil
 }
 
 // AddressTxDetail 地址分析-交易详情
@@ -89,16 +98,16 @@ func (this *AddressService) AddressTxDetail(req apiModels.ReqAddressTxDetail) (*
 }
 
 // AddressTxList 地址分析-交易列表
-func (this *AddressService) AddressTxList(fromAddress, toAddress, contractAddr string) ([]*apiModels.RespAddressTxList, error) {
+func (this *AddressService) AddressTxList(req apiModels.ReqAddressTxList) ([]*apiModels.RespAddressTxList, error) {
 	var res []*apiModels.RespAddressTxList
 	var err error
-	if len(contractAddr) == 0 {
-		res, err = dbModels.GetAddressTxDetailList(fromAddress, toAddress)
+	if len(req.ContractAddress) == 0 {
+		res, err = dbModels.GetAddressTxDetailList(req)
 		if err != nil {
 			beego.Error("dbModels.GetAddressTxDetailList error.", err)
 		}
-	}else {
-		res, err = dbModels.GetAddressTokenTxDetailList(fromAddress, toAddress, contractAddr)
+	} else {
+		res, err = dbModels.GetAddressTokenTxDetailList(req)
 		if err != nil {
 			beego.Error("dbModels.GetAddressTokenTxDetailList error.", err)
 		}

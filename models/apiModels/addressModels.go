@@ -24,13 +24,13 @@ type RespContractAddressInfo struct {
 	Address     string  `json:"address"`
 	AccountType int     `json:"account_type"`
 	Balance     float64 `json:"balance"`
-	Symbol      string  `json:"symbol"`
-	Decimals    int64   `json:"decimals"`
+	Symbol      string  `json:"symbol,omitempty"`
+	Decimals    int64   `json:"decimals,omitempty"`
 }
 
 type RespAddressDetail struct {
 	Address            string  `json:"address"`
-	Type               int     `json:"type"`
+	Type               int     `json:"type"` // 账户类型：1-account 2-contract
 	OutAddressCount    int     `json:"out_address_count"`
 	InAddressCount     int     `json:"in_address_count"`
 	Balance            float64 `json:"balance"`

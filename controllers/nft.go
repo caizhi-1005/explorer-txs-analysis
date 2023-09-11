@@ -53,9 +53,9 @@ func (this *NFTController) NFTAddressDetail() {
 	}
 
 	result, err := this.nftService.NFTAddressDetail(Req)
-	if err != nil && err != orm.ErrNoRows{
+	if err != nil {
 		beego.Error("NFT NFTAddressDetail error.", err)
-		this.ResponseInfo(500, "NFT NFTAddressDetail error.", err)
+		this.ResponseInfo(500, "NFT address detail error.", err.Error())
 		return
 	}
 	this.ResponseInfo(200, nil, result)
@@ -95,7 +95,7 @@ func (this *NFTController) NFTTxDetail() {
 	result, err := this.nftService.NFTTxDetail(Req)
 	if err != nil {
 		beego.Error("NFT NFTTxDetail error.", err)
-		this.ResponseInfo(500, "NFT NFTTxDetail error.", err)
+		this.ResponseInfo(500, "NFT NFTTxDetail error.", err.Error())
 		return
 	}
 	this.ResponseInfo(200, nil, result)
@@ -113,7 +113,7 @@ func (this *NFTController) NFTDetail() {
 	result, err := this.nftService.NFTDetail(Req)
 	if err != nil {
 		beego.Error("NFT NFTDetail error.", err)
-		this.ResponseInfo(500, "NFT NFTDetail error.", err)
+		this.ResponseInfo(500, "NFT NFTDetail error.", err.Error())
 		return
 	}
 	this.ResponseInfo(200, nil, result)

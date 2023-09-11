@@ -2,6 +2,7 @@ package dbModels
 
 import (
 	"github.com/server/txs-analysis/models/apiModels"
+	"strconv"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -58,11 +59,11 @@ func GetAddressTxInfo(address, contractAddr string) (Res *apiModels.RespAddressD
 		condition = " and token_address = '" + contractAddr + "'"
 	}
 
-	sqlStr := " select A.address, sum(tx_count) as tx_count, sum(in_addr_count) as in_address_count, sum(out_addr_count) as out_address_count, min(min_tx_time) as first_tx_time, max(max_amount) as max_tx_amount, sum(in_amount) as receive_amount_total, sum(out_amount) as send_amount_total " +
+	sqlStr := " select A.address, sum(tx_count) as tx_count, sum(in_addr_count) as in_address_count, sum(out_addr_count) as out_address_count, min(min_tx_time) as first_tx_time, max(max_amount) as max_tx_amount, sum(in_amount) as receive_amount_total, sum(out_amount) as send_amount_total" +
 		" from ( " +
-		" select `from` as address, COUNT(1) as tx_count, COUNT(DISTINCT `from`) as in_addr_count, 0 as out_addr_count, sum(amount) as in_amount, 0.0 as out_amount, min(tx_time) as min_tx_time, max(amount) as max_amount from " + table + " where`to` = '" + address + "'" + condition + " GROUP BY `from` " +
+		" select `from` as address, COUNT(1) as tx_count, COUNT(`from`) as in_addr_count, 0 as out_addr_count, sum(amount) as in_amount, 0.0 as out_amount, min(tx_time) as min_tx_time, max(amount) as max_amount from " + table + " where`to` = '" + address + "'" + condition + " GROUP BY `from`" +
 		" union " +
-		" select `to` as address, COUNT(1) as tx_count, 0 as in_addr_count, COUNT(DISTINCT `to`) as out_addr_count, 0.0 as in_amount, sum(amount) as out_amount, min(tx_time) as min_tx_time, max(amount) as max_amount from " + table + " t where `from` = '" + address + "'" + condition + " GROUP BY `to` " +
+		" select `to` as address, COUNT(1) as tx_count, 0 as in_addr_count, COUNT(`to`) as out_addr_count, 0.0 as in_amount, sum(amount) as out_amount, min(tx_time) as min_tx_time, max(amount) as max_amount from " + table + " t where `from` = '" + address + "'" + condition + " GROUP BY `to`" +
 		" )A group by A.address "
 
 	err = ormer.Raw(sqlStr).QueryRow(&Res)
@@ -112,30 +113,53 @@ func GetAddressTxDetailInfo(req apiModels.ReqAddressTxDetail) (Res *apiModels.Re
 }
 
 // 地址分析-交易详情-交易列表
-func GetAddressTxDetailList(fromAddress, toAddress string) (Res []*apiModels.RespAddressTxList, err error) {
+func GetAddressTxDetailList(req apiModels.ReqAddressTxList) (Res []*apiModels.RespAddressTxList, err error) {
 	ormer := orm.NewOrm()
-	sqlStr := "SELECT tx_time, tx_hash, amount from tb_transaction WHERE `from`='" + fromAddress + "' and `to`= '" + toAddress + "'"
+
+	offset := (req.Page - 1) * req.PageSize
+	offsetStr := strconv.Itoa(int(offset))
+
+	limitStr := " LIMIT " + req.Length + " OFFSET " + offsetStr
+	sqlStr := "SELECT tx_time, tx_hash, amount from tb_transaction WHERE `from`='" + req.From + "' and `to`= '" + req.To + "'" + limitStr
 	_, err = ormer.Raw(sqlStr).QueryRows(&Res)
 	return
 }
 
 // 交易图谱-交易详情
-func GetTxInfo(txHash string) (Res *apiModels.RespTxDetail, err error) {
+func GetTxInfo(req apiModels.ReqTxDetail) (Res *apiModels.RespTxDetail, err error) {
 	ormer := orm.NewOrm()
-	sqlStr := "SELECT tx_hash, amount, tx_fee, tx_time,`from`,`to` FROM tb_transaction WHERE tx_hash='" + txHash + "';"
+	table := ""
+	condition := ""
+	if len(req.ContractAddress) == 0 {
+		table = "tb_transaction"
+		condition = ", tx_fee FROM " + table + " WHERE tx_hash='" + req.Value + "'"
+	} else {
+		table = "tb_contract_transaction"
+		condition = " FROM " + table + " WHERE tx_hash='" + req.Value + "'" + " and token_address = '" + req.ContractAddress + "'"
+	}
+	sqlStr := "SELECT tx_hash, amount, tx_time,`from`,`to`" + condition
 	err = ormer.Raw(sqlStr).QueryRow(&Res)
 	return
 }
 
 // 交易图谱-地址详情
-//地址类型、余额、流出金额、流出金额 流入/流出地址数 流入/流出笔数
-func GetTxAddressDetail(address string) (Res *apiModels.RespTxAddressDetail, err error) {
+func GetTxAddressDetail(req apiModels.ReqTxDetail) (Res *apiModels.RespTxAddressDetail, err error) {
 	ormer := orm.NewOrm()
+
+	table := ""
+	condition := ""
+	if len(req.ContractAddress) == 0 {
+		table = "tb_transaction"
+	} else {
+		table = "tb_contract_transaction"
+		condition = " and token_address = '" + req.ContractAddress + "'"
+	}
+
 	sqlStr := " select A.address, sum(in_tx_count) as in_tx_count, sum(out_tx_count) as out_tx_count, sum(in_addr_count) as in_address_count, sum(out_addr_count) as out_address_count, sum(in_amount) as receive_amount_total, sum(out_amount) as send_amount_total " +
 		" from ( " +
-		" select `from` as address, count(1) as in_tx_count, 0 as out_tx_count, COUNT(DISTINCT `from`) as in_addr_count, 0 as out_addr_count, sum(amount) as in_amount, 0.0 as out_amount from tb_transaction where`to` = '" + address + "' GROUP BY `from` " +
+		" select `from` as address, count(1) as in_tx_count, 0 as out_tx_count, COUNT(DISTINCT `from`) as in_addr_count, 0 as out_addr_count, sum(amount) as in_amount, 0.0 as out_amount from " + table + " where`to` = '" + req.Value + "' " + condition + " GROUP BY `from` " +
 		" UNION " +
-		" select `to` as address, 0 as in_tx_count, count(1) as out_tx_count, 0 as in_addr_count, COUNT(DISTINCT `to`) as out_addr_count, 0.0 as in_amount, sum(amount) as out_amount from tb_transaction t where `from` = '" + address + "' GROUP BY `to` " +
+		" select `to` as address, 0 as in_tx_count, count(1) as out_tx_count, 0 as in_addr_count, COUNT(DISTINCT `to`) as out_addr_count, 0.0 as in_amount, sum(amount) as out_amount from " + table + " t where `from` = '" + req.Value + "' " + condition + " GROUP BY `to` " +
 		" )A group by A.address "
 
 	ormer.Raw(sqlStr).QueryRow(&Res)

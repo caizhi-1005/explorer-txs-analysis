@@ -16,7 +16,7 @@ type TxController struct {
 // TxDetail 交易图谱-交易详情
 func (this *TxController) TxDetail() {
 	this.IsPost()
-	Req := apiModels.ReqCommon{}
+	Req := apiModels.ReqTxDetail{}
 	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
 		beego.Error(constant.ErrParam, err)
 		this.ResponseInfo(500, constant.ErrParam, nil)
@@ -25,7 +25,7 @@ func (this *TxController) TxDetail() {
 		beego.Error(constant.ErrParam)
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
-	res, err := this.txService.TxDetail(Req.Value)
+	res, err := this.txService.TxDetail(Req)
 	if err != nil {
 		beego.Error(constant.ErrSystem, err)
 		this.ResponseInfo(500, constant.ErrSystem, nil)
@@ -37,7 +37,7 @@ func (this *TxController) TxDetail() {
 // TxAddressDetail 交易图谱-地址详情
 func (this *TxController) TxAddressDetail() {
 	this.IsPost()
-	Req := apiModels.ReqCommon{}
+	Req := apiModels.ReqTxDetail{}
 	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &Req); nil != err {
 		beego.Error(constant.ErrParam, err)
 		this.ResponseInfo(500, constant.ErrParam, nil)
@@ -46,7 +46,7 @@ func (this *TxController) TxAddressDetail() {
 		beego.Error(constant.ErrParam)
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
-	res, err := this.txService.TxAddressDetail(Req.Value)
+	res, err := this.txService.TxAddressDetail(Req)
 	if err != nil {
 		beego.Error(constant.ErrSystem, err)
 		this.ResponseInfo(500, constant.ErrSystem, nil)

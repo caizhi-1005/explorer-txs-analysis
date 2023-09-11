@@ -21,6 +21,7 @@ func (this *AddressController) AddressTokenList() {
 		beego.Error(constant.ErrParam, err)
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
+
 	res, err := this.addressService.AddressTokenList(Req)
 	if err != nil {
 		beego.Error(constant.ErrSystem, err)
@@ -44,7 +45,7 @@ func (this *AddressController) AddressDetail() {
 	res, err := this.addressService.AddressDetail(Req.Value, Req.ContractAddress)
 	if err != nil {
 		beego.Error(constant.ErrSystem, err)
-		this.ResponseInfo(500, constant.ErrSystem, nil)
+		this.ResponseInfo(500, constant.ErrSystem, err.Error())
 	}
 	this.ResponseInfo(200, nil, res)
 }
@@ -78,7 +79,11 @@ func (this *AddressController) AddressTxList() {
 		this.ResponseInfo(500, constant.ErrParam, nil)
 	}
 
-	res, err := this.addressService.AddressTxList(Req.ReqAddressTxDetail.From, Req.ReqAddressTxDetail.To, Req.ContractAddress)
+	page, pageSize := this.Pagination(Req.Start, Req.Length)
+	Req.Page = page
+	Req.PageSize = pageSize
+
+	res, err := this.addressService.AddressTxList(Req)
 	if err != nil {
 		beego.Error(constant.ErrSystem, err)
 		this.ResponseInfo(500, constant.ErrSystem, nil)

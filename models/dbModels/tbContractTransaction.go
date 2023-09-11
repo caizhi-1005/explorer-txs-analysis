@@ -44,10 +44,14 @@ func init() {
 }
 
 // 地址分析-交易详情-合约交易列表
-func GetAddressTokenTxDetailList(fromAddress, toAddress, contractAddr string) (Res []*apiModels.RespAddressTxList, err error) {
+func GetAddressTokenTxDetailList(req apiModels.ReqAddressTxList) (Res []*apiModels.RespAddressTxList, err error) {
 	ormer := orm.NewOrm()
-	condition := " and t.token_address = '" + contractAddr + "'"
-	sqlStr := "SELECT t.tx_time, t.tx_hash, t.amount, c.symbol from tb_contract_transaction t left join tb_contract c on t.token_address = c.contract_address WHERE c.name != '' and c.symbol != '' and t.`from`= '" + fromAddress + "' and t.`to`= '" + toAddress + "'" + condition
+
+	condition := " and t.token_address = '" + req.ContractAddress + "'"
+	offset := (req.Page - 1) * req.PageSize
+	offsetStr := strconv.Itoa(int(offset))
+	limitStr := " LIMIT " + req.Length + " OFFSET " + offsetStr
+	sqlStr := "SELECT t.tx_time, t.tx_hash, t.amount, c.symbol from tb_contract_transaction t left join tb_contract c on t.token_address = c.contract_address WHERE c.name != '' and c.symbol != '' and t.`from`= '" + req.From + "' and t.`to`= '" + req.To + "'" + condition + limitStr
 	_, err = ormer.Raw(sqlStr).QueryRows(&Res)
 	return
 }
@@ -90,21 +94,31 @@ func NFTTransferDetails(req apiModels.ReqNFTTransferDetailsByAddress) ([]*apiMod
 }
 
 // NFTTxDetail NFT溯源-交易详情
-func NFTTxDetail(req apiModels.ReqNFTTxDetail) (*apiModels.RespNFTTxDetail, int, error) {
+func NFTTxDetail(req apiModels.ReqNFTTxDetail) (*apiModels.RespNFTTxDetail, error) {
 	var res *apiModels.RespNFTTxDetail
 	orm := orm.NewOrm()
 
-	var count int
-	sqlCount := "SELECT count(0) as transfer_count from tb_contract_transaction where tx_hash = '" + req.TxHash + "' and token_address = '" + req.ContractAddress + "'"
-	orm.Raw(sqlCount).QueryRow(&count)
-
-	sqlStr := "SELECT token_id, `from`, `to`, max(tx_time) as tx_time, topics1 as method from tb_contract_transaction c left join tb_event e on c.tx_hash = e.tx_hash where c.tx_hash = '" + req.TxHash + "' and token_address = '" + req.ContractAddress + "'"
+	sqlStr := "SELECT token_id, c.`from`, c.`to`, max(c.tx_time) as tx_time, t.input_data as method from tb_contract_transaction c left join tb_transaction t on c.tx_hash = t.tx_hash where c.tx_hash = '" + req.TxHash + "' and c.token_address = '" + req.ContractAddress + "'"
 	err := orm.Raw(sqlStr).QueryRow(&res)
 	if err != nil {
-		return nil, 0, err
+		return nil, err
 	}
-	return res, count, nil
+	return res, nil
 }
+
+
+// NFTTxDetail NFT溯源-交易详情-获取流转次数
+func NFTTxDetailCount(contractAddress, tokenId string) (int, error) {
+	orm := orm.NewOrm()
+	var count int
+	sqlCount := "SELECT count(0) as transfer_count from tb_contract_transaction where token_id = '" + tokenId + "' and token_address = '" + contractAddress + "'"
+	err := orm.Raw(sqlCount).QueryRow(&count)
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
 
 // NFTTransferDetailByTokenId NFT溯源-交易详情-根据token id获取流转详情列表
 func NFTTransferDetailByTokenId(req apiModels.ReqNFTTransferDetailsByTokenId) ([]*apiModels.RespNFTTransferDetailsByTokenId, error) {

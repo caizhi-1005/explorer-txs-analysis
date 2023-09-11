@@ -1,7 +1,9 @@
 package service
 
 import (
+	"errors"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	"github.com/server/txs-analysis/constant"
 	"github.com/server/txs-analysis/models/apiModels"
 	"github.com/server/txs-analysis/models/dbModels"
@@ -11,45 +13,31 @@ import (
 type TxService struct {
 }
 
-
 // TxService 交易图谱-交易详情
-//func (this *TxService) TxDetail(address string) (*apiModels.RespTxDetail, error) {
-//	var res *apiModels.RespTxDetail
-//	tx, err := dbModels.GetTxInfo(address)
-//	if err != nil {
-//		beego.Error("dbModels.GetTxInfo error.", err)
-//	}
-//	//获取地址类型
-//	fromInfo, err := dbModels.GetAddressInfo(tx.From)
-//	if err != nil {
-//		beego.Error("dbModels.GetAddressInfo error.", err)
-//	}
-//	toInfo, err := dbModels.GetAddressInfo(tx.To)
-//	if err != nil {
-//		beego.Error("dbModels.GetAddressInfo error.", err)
-//	}
-//
-//	res.FromType = fromInfo.AccountType
-//	res.ToType = toInfo.AccountType
-//	return tx, nil
-//}
-
-// TxService 交易图谱-交易详情
-// todo 判断是否是合约交易
-func (this *TxService) TxDetail(address string) (*apiModels.RespTxDetail, error) {
-	tx, err := dbModels.GetTxInfo(address)
-	if err != nil {
-		beego.Error("dbModels.GetTxInfo error.", err)
+func (this *TxService) TxDetail(req apiModels.ReqTxDetail) (*apiModels.RespTxDetail, error) {
+	tx, err := dbModels.GetTxInfo(req)
+	if err == orm.ErrNoRows {
+		beego.Error("dbModels.GetTxInfo error.", err, " tx_hash:", req.Value)
+		return nil, errors.New(constant.ErrTxHash)
 	}
-	//处理tx_fee小数位
-	tx.TxFee = utils.FeeFormatToDecimalAmount(tx.TxFee, constant.BASE_TOKEN_DECIMAL)
+	if err != nil {
+		beego.Error("dbModels.GetTxInfo error.", err, " tx_hash:", req.Value)
+	}
+	if tx != nil {
+		//处理tx_fee小数位
+		tx.TxFee = utils.FeeFormatToDecimalAmount(tx.TxFee, constant.BASE_TOKEN_DECIMAL)
+	}
 	return tx, nil
 }
 
 
 // TxAddressDetail 交易图谱-地址详情
-func (this *TxService) TxAddressDetail(address string) (*apiModels.RespTxAddressDetail, error) {
-	detail, err := dbModels.GetTxAddressDetail(address)
+func (this *TxService) TxAddressDetail(req apiModels.ReqTxDetail) (*apiModels.RespTxAddressDetail, error) {
+	detail, err := dbModels.GetTxAddressDetail(req)
+	if err == orm.ErrNoRows {
+		beego.Error("dbModels.GetTxAddressDetail error.", err, " address:", req.Value)
+		return nil, errors.New(constant.ErrAddress)
+	}
 	if err != nil {
 		beego.Error("dbModels.GetTxAddressDetail error.", err)
 	}

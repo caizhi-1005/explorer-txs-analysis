@@ -4,7 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/server/txs-analysis/constant"
 	"github.com/server/txs-analysis/models/apiModels"
 	"github.com/server/txs-analysis/models/dbModels"
 	"github.com/server/txs-analysis/models/nebulaModels"
@@ -47,15 +49,19 @@ func (this *NftService) NFTTransferDetailByAddress(req apiModels.ReqNFTTransferD
 	if err != nil {
 		return nil, err
 	}
+	if len(list) == 0 {
+		return nil, nil
+	}
 
 	var keys []string
 	mapData := make(map[string]*apiModels.RespNFTTransferDetailsByAddress)
 	for _, v := range list {
-		tokenId, err := utils.ConvertTokenID(v.TokenId)
+		tokenId, err := utils.TokenIDConvert(v.TokenId)
 		if err != nil {
-			beego.Error("NFTTransferDetailByAddress utils.ConvertTokenID error.", err)
+			beego.Error("NFTTransferDetailByAddress error.", err, " tokenId:", v.TokenId)
 		}
 		keys = append(keys, tokenId)
+		v.TokenId = tokenId
 		mapData[tokenId] = v
 	}
 	sort.Strings(keys)
@@ -70,13 +76,19 @@ func (this *NftService) NFTTransferDetailByAddress(req apiModels.ReqNFTTransferD
 
 // NFTTxDetail NFT溯源-交易详情
 func (this *NftService) NFTTxDetail(req apiModels.ReqNFTTxDetail) (*apiModels.RespNFTTxDetail, error) {
-	contractTx, count, err := dbModels.NFTTxDetail(req)
-	if err != nil {
+	contractTx, err := dbModels.NFTTxDetail(req)
+	if err != nil && err != orm.ErrNoRows {
 		return nil, err
 	}
-	if contractTx == nil {
-		return nil, nil
+	if len(contractTx.TokenId) == 0 {
+		return nil, errors.New(constant.ErrNoNFTTx)
 	}
+
+	count, err := dbModels.NFTTxDetailCount(req.ContractAddress, contractTx.TokenId)
+	if err != nil {
+		beego.Error("dbModels.NFTTxDetailCount error.", err)
+	}
+	contractTx.TransferCount = count
 
 	//处理数据 method
 	contractTx.Method = utils.GetMethod(contractTx.Method)
@@ -87,15 +99,6 @@ func (this *NftService) NFTTxDetail(req apiModels.ReqNFTTxDetail) (*apiModels.Re
 	contractTx.TxHash = req.TxHash
 	contractTx.TransferCount = count
 	return contractTx, nil
-}
-
-// NFTTransferDetail NFT溯源-交易详情
-func (this *NftService) NFTTransferDetail(req apiModels.ReqNFTTxDetail) (*apiModels.RespNFTTxDetail, error) {
-	list, _, err := dbModels.NFTTxDetail(req)
-	if err != nil {
-		return nil, err
-	}
-	return list, nil
 }
 
 // NFTTransferDetailByTokenId NFT溯源-NFT详情-NFT流转详情列表
@@ -114,12 +117,13 @@ func (this *NftService) NFTTransferDetailByTokenId(req apiModels.ReqNFTTransferD
 	return list, nil
 }
 
-//-----------------------------nebula------------------------------
-
 //NFTAddressDetail NFT溯源-地址详情
 func (this *NftService) NFTAddressDetail(req apiModels.ReqNFTAddressDetail) (*apiModels.RespNFTAddressDetail, error) {
 	var res apiModels.RespNFTAddressDetail
 
+	if req.Address == constant.ADDRESS0 {
+
+	}
 	tokenIdAndTypes, err := dbModels.HoldTokenIdAndAddressType(req.ContractAddress, req.Address)
 	if err != nil {
 		beego.Error("dbModels.HoldTokenIdAndAddressType error.", err)
@@ -139,7 +143,7 @@ func (this *NftService) NFTAddressDetail(req apiModels.ReqNFTAddressDetail) (*ap
 	}
 
 	if len(tokenIdsHistory) == 0 {
-		return nil, errors.New("该地址没有所选的NFT交易记录")
+		return nil, errors.New(constant.ErrNoNFTTx)
 	}
 	for _, v := range tokenIdsHistory {
 		var tokenIdHis apiModels.HoldTokenIdHistory
@@ -157,6 +161,7 @@ func (this *NftService) NFTAddressDetail(req apiModels.ReqNFTAddressDetail) (*ap
 
 	maxHoldTime, maxHoldToken := getLongestHold(contractTxs, req.Address)
 	res.LongestHoldTokenId = maxHoldToken
+	res.LongestHoldTokenId = "1"
 	// 处理最长持有时间
 	maxHoldTimeBigInt := big.NewInt(maxHoldTime)
 	maxHoldDay := maxHoldTimeBigInt.Div(maxHoldTimeBigInt, big.NewInt(86400))
@@ -223,6 +228,12 @@ func getLongestHold(contractTxs []*dbModels.TbContractTransaction, accountAddres
 			for i := 0; i < len(v); i++ { //v []map[int]int64
 				// 遍历map
 				for key, value := range v[i] {
+					fmt.Println(" key---->",  key)
+					fmt.Println(" value---->",  value)
+					fmt.Println(" mainEndMap[k]---->",  mainEndMap[k])
+					fmt.Println(" mainEndMap[k][i]---->",  mainEndMap[k][i])
+					fmt.Println(" mainEndMap[k][i][key]---->",  mainEndMap[k][i][key])
+					//fixme ：index out of range [2] with length 2
 					if _, ok := mainEndMap[k][i][key]; !ok {
 						endTime = time.Now().Unix()
 						startTime = value
@@ -259,23 +270,24 @@ func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNF
 		//token_id 转换
 		tokenIdInt, ok := new(big.Int).SetString(req.TokenId, 10)
 		if !ok {
-			return nil, errors.New("convert token_id error.")
+			return nil, errors.New("Convert token_id error.")
 		}
 		req.TokenId = common.BigToHash(tokenIdInt).String()
 	}
 
 	detail, err := dbModels.NFTDetail(req)
-	if err != nil {
+	if err != nil && err != orm.ErrNoRows {
 		beego.Error("dbModels.NFTDetail error.", err)
 	}
-	if detail != nil {
-		res.TransferCount = detail.TransferCount           // 流转次数
-		res.HistoryHolderCount = detail.HistoryHolderCount // 历史持有者数量
-		res.MintTime = detail.MintTime + "天"                  // 铸造时间
+	if detail == nil {
+		return nil, errors.New(constant.ErrNFTInput)
 	}
+	res.TransferCount = detail.TransferCount           // 流转次数
+	res.HistoryHolderCount = detail.HistoryHolderCount // 历史持有者数量
+	res.MintTime = detail.MintTime + "天"               // 铸造时间
 
 	contract, err := dbModels.ContractInfo(req)
-	if err != nil {
+	if err != nil && err != orm.ErrNoRows {
 		beego.Error("dbModels.ContractInfo error.", err)
 	}
 
@@ -347,6 +359,8 @@ func (this *NftService) NFTDetail(req apiModels.ReqNFTDetail) (*apiModels.RespNF
 
 	return &res, nil
 }
+
+//-----------------------------nebula------------------------------
 
 // NFTStartAnalysis NFT溯源-NFT开始分析-交易图
 func (this *NftService) NFTStartAnalysis(req apiModels.ReqNFTStartAnalysis) (*nebulaModels.RespGraph, error) {

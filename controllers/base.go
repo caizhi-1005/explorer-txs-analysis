@@ -16,7 +16,7 @@ func (d *BaseController) ResponseInfo(code int, errMsg interface{}, result inter
 	case 200:
 		d.Data["json"] = map[string]interface{}{"code": 200, "err_msg": errMsg, "data": result}
 	default:
-		d.Data["json"] = map[string]interface{}{"code": 500, "err_msg": errMsg}
+		d.Data["json"] = map[string]interface{}{"code": 500, "err_msg": errMsg, "data": result}
 	}
 	d.ServeJSON()
 }
